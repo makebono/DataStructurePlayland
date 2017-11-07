@@ -253,9 +253,9 @@ public class BinarySearchTree<T> {
 
                     // Case 4: Most common(it should be in practical using) and complicated case. Target has both
                     // children. In this case, you need to replace the target node with the maximum node in it's left
-                    // subtree. And then delete the left maximum(or right minimum). This could create disasters when 
-                    // in a relatively massive tree. But you can leave the disaster to recursion deletion call. 
-                    // Just need to understand this idea.
+                    // subtree, or minimum in the right subtree. And then delete the left maximum(or right minimum). 
+                    // This could create disasters when in a relatively massive tree. But you can leave the disaster 
+                    // to recursion deletion call. Just need to understand this idea.
                 } else {
                     final BSTNode<T> temp = tempRoot;
                     tempRoot = this.lMax(temp);
