@@ -16,6 +16,7 @@ public class UnorderedLinkedList<T> extends AbstractLinkedList<T> {
         super(sideKick);
     }
 
+    // For unordered list. Add new element to the tail.
     @Override
     public void add(final LLNode<T> node) {
         if (this.size() == 0) {
