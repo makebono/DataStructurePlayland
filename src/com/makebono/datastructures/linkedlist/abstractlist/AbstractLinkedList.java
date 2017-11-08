@@ -3,6 +3,7 @@ package com.makebono.datastructures.linkedlist.abstractlist;
 import java.util.Comparator;
 
 import com.makebono.datastructures.linkedlist.LLNode;
+import com.makebono.datastructures.linkedlist.linkedlistinterface.LinkedList;
 
 /** 
  * @ClassName: AbstractLinkedList 
@@ -12,10 +13,13 @@ import com.makebono.datastructures.linkedlist.LLNode;
  *  
  */
 
-public abstract class AbstractLinkedList<T> {
+public abstract class AbstractLinkedList<T> implements LinkedList<T> {
     private LLNode<T> head;
     private LLNode<T> tail;
     private int size;
+
+    // Need a comparator to help manipulating. You may need to write your own. It depends on what type you put in this
+    // list.
     protected Comparator<T> sideKick;
 
     public AbstractLinkedList(final Comparator<T> sideKick) {
@@ -25,10 +29,15 @@ public abstract class AbstractLinkedList<T> {
         this.sideKick = sideKick;
     }
 
+    @Override
     public void destroy() {
         this.head = null;
         this.tail = null;
         this.size = 0;
+
+        // Don't do this. The comparator doesn't need to be destroy or after destroy you won't be able to use it
+        // again. It will cause problem in get and delete method.
+        // this.sideKick = null;
     }
 
     protected void setHead(final LLNode<T> head) {
@@ -47,20 +56,26 @@ public abstract class AbstractLinkedList<T> {
         this.size--;
     }
 
+    @Override
     public LLNode<T> getHead() {
         return this.head;
     }
 
+    @Override
     public LLNode<T> getTail() {
         return this.tail;
     }
 
+    @Override
     public int size() {
         return this.size;
     }
 
+    // Add is an abstract method because the way it acts depends on what list it is.
+    @Override
     public abstract void add(LLNode<T> node);
 
+    @Override
     public LLNode<T> get(final T data) {
         LLNode<T> cursor = null;
         if (this.size() == 0) {
@@ -86,6 +101,7 @@ public abstract class AbstractLinkedList<T> {
         return cursor;
     }
 
+    @Override
     public LLNode<T> getByIndex(final int index) {
         LLNode<T> cursor = null;
         if (this.size() == 0) {
@@ -111,6 +127,7 @@ public abstract class AbstractLinkedList<T> {
         return cursor;
     }
 
+    @Override
     public boolean del(final T data) {
         return this.delete(data);
     }
@@ -158,6 +175,7 @@ public abstract class AbstractLinkedList<T> {
         return false;
     }
 
+    @Override
     public boolean delByIndex(final int index) {
         return this.deleteByIndex(index);
     }
