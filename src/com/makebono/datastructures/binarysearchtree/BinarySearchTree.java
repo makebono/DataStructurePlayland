@@ -19,7 +19,7 @@ public class BinarySearchTree<T> {
     private int size;
 
     // Need a comparator to help ordering the tree. You may need to write your own.
-    private final Comparator<T> sideKick;
+    private Comparator<T> sideKick;
 
     public BinarySearchTree(final Comparator<T> sideKick) {
         this.root = null;
@@ -30,6 +30,12 @@ public class BinarySearchTree<T> {
     public BinarySearchTree(final BSTNode<T> root, final Comparator<T> sideKick) {
         this.root = root;
         this.size = 1;
+        this.sideKick = sideKick;
+    }
+
+    public void initiate(final Comparator<T> sideKick) {
+        this.root = null;
+        this.size = 0;
         this.sideKick = sideKick;
     }
 
@@ -221,6 +227,8 @@ public class BinarySearchTree<T> {
 
     // Delete by data. Do the decrement of size just one time here. Or there maybe problems during recursion process.
     // This is another critical reason I write a little interface here. It's not only just for convenience.
+    // And because I do not force the uniqueness of data and index. It will delete the first element found. It is easy
+    // to add limitation in add method.
     public void del(final T data) {
         if (this.size() == 0) {
             System.out.println("This is an empty tree.");
@@ -284,6 +292,22 @@ public class BinarySearchTree<T> {
                 }
             }
         }
+    }
+
+    public String printBFS() {
+        final StringBuilder sb = new StringBuilder();
+        for (final BSTNode<T> node : this.bfs()) {
+            sb.append("Node(" + node.getIndex() + ", " + node.getData() + ") ");
+        }
+        return sb.toString();
+    }
+
+    public String printDFS() {
+        final StringBuilder sb = new StringBuilder();
+        for (final BSTNode<T> node : this.dfs()) {
+            sb.append("Node(" + node.getIndex() + ", " + node.getData() + ") ");
+        }
+        return sb.toString();
     }
 
     @Override

@@ -10,22 +10,22 @@ import com.makebono.datastructures.linkedlist.LLNode;
  *  
  */
 public interface LinkedList<T> {
-    public void add(LLNode<T> node);
+    void add(LLNode<T> node);
 
-    public boolean del(T data);
+    boolean del(T data);
 
-    public boolean delByIndex(int index);
+    boolean delByIndex(int index);
 
-    public void destroy();
+    void destroy();
 
-    public LLNode<T> get(T data);
+    LLNode<T> get(T data);
 
-    public LLNode<T> getByIndex(int index);
+    LLNode<T> getByIndex(int index);
 
-    public LLNode<T> getHead();
+    LLNode<T> getHead();
 
-    public LLNode<T> getTail();
+    LLNode<T> getTail();
 
-    public int size();
+    int size();
 
 }
