@@ -10,13 +10,13 @@ import com.makebono.datastructures.linkedlist.LLNode;
  *  
  */
 public interface Queue<T> {
-    public void add(LLNode<T> node);
+    void add(LLNode<T> node);
 
-    public LLNode<T> poll();
+    LLNode<T> poll();
 
-    public void destroy();
+    void destroy();
 
-    public int size();
+    int size();
 
-    public LLNode<T> peek();
+    LLNode<T> peek();
 }

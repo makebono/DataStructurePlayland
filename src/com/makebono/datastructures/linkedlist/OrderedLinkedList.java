@@ -24,31 +24,37 @@ public class OrderedLinkedList<T> extends AbstractLinkedList<T> {
             this.setHead(node);
             this.setTail(node);
         } else {
-            LLNode<T> cursor = this.getHead();
-            // Case 2: New node smaller than the head. Insert it before the head.
-            if (this.sideKick.compare(node.getData(), cursor.getData()) <= 0) {
-                node.setNext(cursor);
-                this.setHead(node);
+            if (this.getByIndex(node.getIndex()) != null) {
+                System.out.println("Index should be unique.");
+                this.decline();
             } else {
-                // Case 3: It's bigger than the head and only 1 element in the list now. Set it as tail.
-                if (!cursor.hasNext()) {
-                    cursor.setNext(node);
-                    this.setTail(node);
+                LLNode<T> cursor = this.getHead();
+                // Case 2: New node smaller than the head. Insert it before the head.
+                if (this.sideKick.compare(node.getData(), cursor.getData()) <= 0) {
+                    node.setNext(cursor);
+                    this.setHead(node);
                 } else {
-                    boolean added = false;
-                    while (cursor.hasNext() && !added) {
-                        // Case 4: It's bigger than head and less than tail. Insert it at proper position.
-                        if (this.sideKick.compare(node.getData(), cursor.getNext().getData()) <= 0) {
-                            node.setNext(cursor.getNext());
-                            cursor.setNext(node);
-                            added = true;
-                        }
-                        cursor = cursor.getNext();
-                    }
-                    // Case 5: Actually sames as case 3. It's larger than anyone else in the list, so becomes the tail.
-                    if (!added) {
-                        this.getTail().setNext(node);
+                    // Case 3: It's bigger than the head and only 1 element in the list now. Set it as tail.
+                    if (!cursor.hasNext()) {
+                        cursor.setNext(node);
                         this.setTail(node);
+                    } else {
+                        boolean added = false;
+                        while (cursor.hasNext() && !added) {
+                            // Case 4: It's bigger than head and less than tail. Insert it at proper position.
+                            if (this.sideKick.compare(node.getData(), cursor.getNext().getData()) <= 0) {
+                                node.setNext(cursor.getNext());
+                                cursor.setNext(node);
+                                added = true;
+                            }
+                            cursor = cursor.getNext();
+                        }
+                        // Case 5: Actually sames as case 3. It's larger than anyone else in the list, so becomes the
+                        // tail.
+                        if (!added) {
+                            this.getTail().setNext(node);
+                            this.setTail(node);
+                        }
                     }
                 }
             }

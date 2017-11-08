@@ -172,6 +172,7 @@ public abstract class AbstractLinkedList<T> implements LinkedList<T> {
                 }
             }
         }
+        System.out.println("Your input isn't in this list.");
         return false;
     }
 
@@ -217,6 +218,7 @@ public abstract class AbstractLinkedList<T> implements LinkedList<T> {
                 }
             }
         }
+        System.out.println("Your input isn't in this list.");
         return false;
     }
 
