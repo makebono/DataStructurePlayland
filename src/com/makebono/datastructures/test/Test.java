@@ -3,6 +3,7 @@ package com.makebono.datastructures.test;
 import com.makebono.datastructures.linkedlist.LLNode;
 import com.makebono.datastructures.linkedlist.OrderedLinkedList;
 import com.makebono.datastructures.linkedlist.UnorderedLinkedList;
+import com.makebono.datastructures.linkedlist.linkedlistinterface.LinkedList;
 import com.makebono.datastructures.tools.tcomparator.TComparator;
 
 /** 
@@ -67,8 +68,8 @@ public class Test {
         final LLNode<Integer> nn5 = new LLNode<Integer>(5, 4);
         final LLNode<Integer> nn6 = new LLNode<Integer>(6, 1);
 
-        final OrderedLinkedList<Integer> oll = new OrderedLinkedList<Integer>(sideKick);
-        final UnorderedLinkedList<Integer> ull = new UnorderedLinkedList<Integer>(sideKick);
+        final LinkedList<Integer> oll = new OrderedLinkedList<Integer>(sideKick);
+        final LinkedList<Integer> ull = new UnorderedLinkedList<Integer>(sideKick);
 
         oll.add(n1);
         oll.add(n2);
