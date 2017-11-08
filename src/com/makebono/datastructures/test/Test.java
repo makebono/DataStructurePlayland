@@ -1,9 +1,9 @@
 package com.makebono.datastructures.test;
 
-import com.makebono.datastructures.binarysearchtree.BSTNode;
-import com.makebono.datastructures.hashtable.HashTable;
-import com.makebono.datastructures.tools.hashfunction.ExampleHashFunction;
-import com.makebono.datastructures.tools.hashfunction.hashfunctioninterface.HashFunction;
+import com.makebono.datastructures.linkedlist.LLNode;
+import com.makebono.datastructures.queue.BonoQueue;
+import com.makebono.datastructures.queue.PriorityBonoQueue;
+import com.makebono.datastructures.queue.queueinterface.Queue;
 import com.makebono.datastructures.tools.tcomparator.TComparator;
 
 /** 
@@ -102,10 +102,10 @@ public class Test {
         
         oll.destroy();
         System.out.println(oll);
-        */
+        
         final TComparator<Integer> sideKick = new TComparator<Integer>();
         final HashFunction hf = new ExampleHashFunction();
-
+        
         final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
         final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
         final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
@@ -118,7 +118,7 @@ public class Test {
         final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
         final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
         final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
-
+        
         final HashTable<Integer> ht = new HashTable<Integer>(4, hf, sideKick);
         ht.add(n1);
         ht.add(n3);
@@ -132,16 +132,48 @@ public class Test {
         ht.add(n11);
         ht.add(n12);
         ht.add(n13);
-
+        
         System.out.println(ht);
         System.out.println(ht.get(1));
-
+        
         ht.del(1);
         ht.del(111);
         System.out.println(ht);
-
+        
         ht.destroy();
         System.out.println(ht);
+        */
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
 
+        final LLNode<Integer> n1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> n2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> n3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> n4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> n5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> n6 = new LLNode<Integer>(6, 1);
+        final LLNode<Integer> nn1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> nn2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> nn3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> nn4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> nn5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> nn6 = new LLNode<Integer>(6, 1);
+
+        final Queue<Integer> q = new BonoQueue<Integer>(sideKick);
+        final Queue<Integer> q2 = new PriorityBonoQueue<Integer>(sideKick);
+        q.add(n1);
+        q.add(n2);
+        q.add(n3);
+        q.add(n4);
+        q.add(n5);
+        q.add(n6);
+        q2.add(nn1);
+        q2.add(nn2);
+        q2.add(nn3);
+        q2.add(nn4);
+        q2.add(nn5);
+        q2.add(nn6);
+
+        System.out.println(q);
+        System.out.println(q2);
     }
 }
