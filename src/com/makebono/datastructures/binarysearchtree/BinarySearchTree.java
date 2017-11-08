@@ -56,7 +56,7 @@ public class BinarySearchTree<T> {
         if (this.getRoot() == null) {
             this.root = node;
         } else {
-            if (sideKick.compare(node.getData(), root.getData()) <= 0) {
+            if (this.sideKick.compare(node.getData(), root.getData()) <= 0) {
                 if (root.getL() == null) {
                     root.setL(node);
                 } else {
@@ -153,10 +153,10 @@ public class BinarySearchTree<T> {
         if (root == null) {
             return result;
         } else {
-            if (sideKick.compare(data, root.getData()) == 0) {
+            if (this.sideKick.compare(data, root.getData()) == 0) {
                 return root;
             } else {
-                if (sideKick.compare(data, root.getData()) < 0) {
+                if (this.sideKick.compare(data, root.getData()) < 0) {
                     return get(data, root.getL());
                 } else {
                     return get(data, root.getR());
@@ -245,17 +245,17 @@ public class BinarySearchTree<T> {
 
         // Case 1: Invalid input, search for the input first to decide. Do nothing. But remember to increase the size
         // because once this method is called, the size is decreased.
-        if (sideKick.compare(data, root.getData()) != 0 && root.isLeaf()) {
+        if (this.sideKick.compare(data, root.getData()) != 0 && root.isLeaf()) {
             System.out.println("Your input isn't in this tree.");
             size++;
             return root;
         } else {
             // Search for the node by property of BST. Do recursion call.
-            if (sideKick.compare(data, tempRoot.getData()) < 0) {
+            if (this.sideKick.compare(data, tempRoot.getData()) < 0) {
                 tempRoot.setL(del(data, tempRoot.getL()));
                 return tempRoot;
             }
-            if (sideKick.compare(data, tempRoot.getData()) > 0) {
+            if (this.sideKick.compare(data, tempRoot.getData()) > 0) {
                 tempRoot.setR(del(data, tempRoot.getR()));
                 return tempRoot;
             } else {

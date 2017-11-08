@@ -1,7 +1,8 @@
 package com.makebono.datastructures.test;
 
-import com.makebono.datastructures.binarysearchtree.BSTNode;
-import com.makebono.datastructures.binarysearchtree.BinarySearchTree;
+import com.makebono.datastructures.linkedlist.LLNode;
+import com.makebono.datastructures.linkedlist.OrderedLinkedList;
+import com.makebono.datastructures.linkedlist.UnorderedLinkedList;
 import com.makebono.datastructures.tools.tcomparator.TComparator;
 
 /** 
@@ -13,7 +14,7 @@ import com.makebono.datastructures.tools.tcomparator.TComparator;
  */
 public class Test {
     public static <T> void main(final String[] args) {
-        final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
+        /*final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
         final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
         final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
         final BSTNode<Integer> n5 = new BSTNode<Integer>(5, 15);
@@ -25,10 +26,10 @@ public class Test {
         final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
         final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
         final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
-
+        
         final TComparator<Integer> sideKick = new TComparator<Integer>();
         final BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>(n1, sideKick);
-
+        
         bst.addNode(n3);
         bst.addNode(n4);
         bst.addNode(n5);
@@ -40,7 +41,7 @@ public class Test {
         bst.addNode(n11);
         bst.addNode(n12);
         bst.addNode(n13);
-
+        
         bst.del(33);
         bst.del(5);
         bst.delByIndex(99);
@@ -50,6 +51,54 @@ public class Test {
         System.out.println(bst);
         bst.del(3);
         bst.delByIndex(1);
+        */
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
 
+        final LLNode<Integer> n1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> n2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> n3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> n4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> n5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> n6 = new LLNode<Integer>(6, 1);
+        final LLNode<Integer> nn1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> nn2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> nn3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> nn4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> nn5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> nn6 = new LLNode<Integer>(6, 1);
+
+        final OrderedLinkedList<Integer> oll = new OrderedLinkedList<Integer>(sideKick);
+        final UnorderedLinkedList<Integer> ull = new UnorderedLinkedList<Integer>(sideKick);
+
+        oll.add(n1);
+        oll.add(n2);
+        oll.add(n3);
+        oll.add(n4);
+        oll.add(n5);
+        oll.add(n6);
+        System.out.println(oll);
+
+        ull.add(nn1);
+        ull.add(nn2);
+        ull.add(nn3);
+        ull.add(nn4);
+        ull.add(nn5);
+        ull.add(nn6);
+        System.out.println(ull);
+
+        oll.del(5);
+        oll.delByIndex(5);
+        oll.del(333);
+        oll.delByIndex(123);
+        System.out.println(oll);
+
+        ull.del(5);
+        ull.delByIndex(5);
+        ull.del(333);
+        ull.delByIndex(123);
+        System.out.println(ull);
+
+        oll.destroy();
+        System.out.println(oll);
     }
 }
