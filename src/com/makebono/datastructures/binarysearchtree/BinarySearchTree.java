@@ -207,26 +207,45 @@ public class BinarySearchTree<T> {
 
     // Delete node by index. Call delete by data inside.
     public void delByIndex(final int index) {
-        final BSTNode<T> target = this.getByIndex(index);
-        this.del(target.getData());
+        if (this.size() == 0) {
+            System.out.println("This is an empty tree.");
+        } else {
+            final BSTNode<T> target = this.getByIndex(index);
+            if (target != null) {
+                this.del(target.getData());
+            } else {
+                System.out.println("Your input isn't in this tree.");
+            }
+        }
     }
 
     // Delete by data. Do the decrement of size just one time here. Or there maybe problems during recursion process.
     // This is another critical reason I write a little interface here. It's not only just for convenience.
     public void del(final T data) {
-        this.root = this.del(data, this.getRoot());
-        size--;
+        if (this.size() == 0) {
+            System.out.println("This is an empty tree.");
+        } else {
+            this.root = this.del(data, this.getRoot());
+            size--;
+        }
     }
 
     // Implementation of delete by data. Several cases to be handled with. This is the most important part of
     // implementing a BST.
     private BSTNode<T> del(final T data, final BSTNode<T> root) {
-        final BSTNode<T> target = this.get(data);
+        // final BSTNode<T> target = this.get(data);
         BSTNode<T> tempRoot = root;
+
+        // What was I thinking... Where is the necessity for searching twice?
+        // if (target == null) {
+        // System.out.println("Your input isn't in this tree.");
+        // size++;
+        // return root;
+        // }
 
         // Case 1: Invalid input, search for the input first to decide. Do nothing. But remember to increase the size
         // because once this method is called, the size is decreased.
-        if (target == null) {
+        if (sideKick.compare(data, root.getData()) != 0 && root.isLeaf()) {
             System.out.println("Your input isn't in this tree.");
             size++;
             return root;
@@ -253,8 +272,8 @@ public class BinarySearchTree<T> {
 
                     // Case 4: Most common(it should be in practical using) and complicated case. Target has both
                     // children. In this case, you need to replace the target node with the maximum node in it's left
-                    // subtree, or minimum in the right subtree. And then delete the left maximum(or right minimum). 
-                    // This could create disasters when in a relatively massive tree. But you can leave the disaster 
+                    // subtree, or minimum in the right subtree. And then delete the left maximum(or right minimum).
+                    // This could create disasters when in a relatively massive tree. But you can leave the disaster
                     // to recursion deletion call. Just need to understand this idea.
                 } else {
                     final BSTNode<T> temp = tempRoot;
