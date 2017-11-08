@@ -23,12 +23,17 @@ public class UnorderedLinkedList<T> extends AbstractLinkedList<T> {
             this.setHead(node);
             this.setTail(node);
         } else {
-            LLNode<T> cursor = this.getHead();
-            while (cursor.hasNext()) {
-                cursor = cursor.getNext();
+            if (this.getByIndex(node.getIndex()) != null) {
+                System.out.println("Index should be unique.");
+                this.decline();
+            } else {
+                LLNode<T> cursor = this.getHead();
+                while (cursor.hasNext()) {
+                    cursor = cursor.getNext();
+                }
+                cursor.setNext(node);
+                this.setTail(node);
             }
-            cursor.setNext(node);
-            this.setTail(node);
         }
         this.grow();
     }

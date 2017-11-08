@@ -4,6 +4,8 @@ import com.makebono.datastructures.linkedlist.LLNode;
 import com.makebono.datastructures.queue.BonoQueue;
 import com.makebono.datastructures.queue.PriorityBonoQueue;
 import com.makebono.datastructures.queue.queueinterface.Queue;
+import com.makebono.datastructures.stack.BonoStack;
+import com.makebono.datastructures.stack.stackinterface.Stack;
 import com.makebono.datastructures.tools.tcomparator.TComparator;
 
 /** 
@@ -157,9 +159,16 @@ public class Test {
         final LLNode<Integer> nn4 = new LLNode<Integer>(4, 3);
         final LLNode<Integer> nn5 = new LLNode<Integer>(5, 4);
         final LLNode<Integer> nn6 = new LLNode<Integer>(6, 1);
+        final LLNode<Integer> nnn1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> nnn2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> nnn3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> nnn4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> nnn5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> nnn6 = new LLNode<Integer>(6, 1);
 
         final Queue<Integer> q = new BonoQueue<Integer>(sideKick);
         final Queue<Integer> q2 = new PriorityBonoQueue<Integer>(sideKick);
+        final Stack<Integer> s = new BonoStack<Integer>(sideKick);
         q.add(n1);
         q.add(n2);
         q.add(n3);
@@ -172,8 +181,22 @@ public class Test {
         q2.add(nn4);
         q2.add(nn5);
         q2.add(nn6);
-
+        s.add(nnn1);
+        s.add(nnn2);
+        s.add(nnn3);
+        s.add(nnn4);
+        s.add(nnn5);
+        s.add(nnn6);
+        s.add(new LLNode<Integer>(1, 333));
         System.out.println(q);
         System.out.println(q2);
+        System.out.println(s);
+
+        final int size = s.size();
+        for (int i = 0; i < size; i++) {
+            System.out.printf("Poping out from stack: %d\n", s.pop().getIndex());
+        }
+        System.out.println(s);
+
     }
 }

@@ -62,17 +62,22 @@ public class BinarySearchTree<T> {
         if (this.getRoot() == null) {
             this.root = node;
         } else {
-            if (this.sideKick.compare(node.getData(), root.getData()) <= 0) {
-                if (root.getL() == null) {
-                    root.setL(node);
-                } else {
-                    addNode(node, root.getL());
-                }
+            if (this.getByIndex(node.getIndex()) != null) {
+                System.out.println("Index should be unique in this tree.");
+                size--;
             } else {
-                if (root.getR() == null) {
-                    root.setR(node);
+                if (this.sideKick.compare(node.getData(), root.getData()) <= 0) {
+                    if (root.getL() == null) {
+                        root.setL(node);
+                    } else {
+                        addNode(node, root.getL());
+                    }
                 } else {
-                    addNode(node, root.getR());
+                    if (root.getR() == null) {
+                        root.setR(node);
+                    } else {
+                        addNode(node, root.getR());
+                    }
                 }
             }
         }
@@ -227,8 +232,6 @@ public class BinarySearchTree<T> {
 
     // Delete by data. Do the decrement of size just one time here. Or there maybe problems during recursion process.
     // This is another critical reason I write a little interface here. It's not only just for convenience.
-    // And because I do not force the uniqueness of data and index. It will delete the first element found. It is easy
-    // to add limitation in add method.
     public void del(final T data) {
         if (this.size() == 0) {
             System.out.println("This is an empty tree.");

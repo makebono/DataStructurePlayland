@@ -17,12 +17,10 @@ import com.makebono.datastructures.tools.hashfunction.hashfunctioninterface.Hash
 public class HashTable<T> {
     private HTBucket<T>[] table;
     int tables;
-    private int size;
     private final HashFunction hashFunction;
     private final Comparator<T> sideKick;
 
     public HashTable(final int tables, final HashFunction hashFunction, final Comparator<T> sideKick) {
-        this.size = 0;
         this.tables = tables;
         this.hashFunction = hashFunction;
         this.sideKick = sideKick;
@@ -37,7 +35,6 @@ public class HashTable<T> {
 
     public void destroy() {
         this.table = new HTBucket[this.countTables()];
-        this.size = 0;
     }
 
     public HTBucket<T>[] getTable() {
@@ -45,7 +42,11 @@ public class HashTable<T> {
     }
 
     public int size() {
-        return this.size;
+        int size = 0;
+        for (int i = 0; i < this.getTable().length; i++) {
+            size += this.getTable()[i].size();
+        }
+        return size;
     }
 
     public int countTables() {
@@ -55,7 +56,6 @@ public class HashTable<T> {
     public void add(final BSTNode<T> node) {
         final int hashKey = this.hashFunction.hash(node.getIndex());
         this.getTable()[hashKey].addNode(node);
-        this.size++;
     }
 
     public BSTNode<T> get(final int index) {
@@ -63,14 +63,11 @@ public class HashTable<T> {
         return this.getTable()[hashKey].getByIndex(index);
     }
 
-    // As in the binary search tree. I don't force the uniqueness on index and data. So it will delete the first item
-    // found in table. If you need to add limitation, do it in add method.
     public void del(final int index) {
         final BSTNode<T> temp = this.get(index);
         if (temp != null) {
             final int hashKey = this.hashFunction.hash(index);
             this.getTable()[hashKey].delByIndex(index);
-            this.size--;
         } else {
             System.out.println("Your input is not in the table.");
         }
