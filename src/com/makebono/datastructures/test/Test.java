@@ -40,10 +40,16 @@ public class Test {
         bst.addNode(n11);
         bst.addNode(n12);
         bst.addNode(n13);
+
+        bst.del(33);
         bst.del(5);
-        bst.delByIndex(3);
+        bst.delByIndex(99);
+        bst.delByIndex(9);
         System.out.println(bst);
         bst.destroy();
         System.out.println(bst);
+        bst.del(3);
+        bst.delByIndex(1);
+
     }
 }
