@@ -127,6 +127,9 @@ public abstract class AbstractLinkedList<T> implements LinkedList<T> {
         return cursor;
     }
 
+    // Suggest to use delByIndex. del will just delete the first element with such input data. Because data is not
+    // considered to be unique in this list.
+    @Deprecated
     @Override
     public boolean del(final T data) {
         return this.delete(data);
