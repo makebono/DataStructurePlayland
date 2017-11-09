@@ -35,19 +35,23 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
         this.sideKick = sideKick;
     }
 
+    @Override
     public int size() {
         return this.size;
     }
 
+    @Override
     public BSTNode<T> getRoot() {
         return this.root;
     }
 
+    @Override
     public void destroy() {
         this.root = null;
         this.size = 0;
     }
 
+    @Override
     public void addNode(final BSTNode<T> node) {
         this.addNode(node, this.getRoot());
         size++;
@@ -80,6 +84,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // Breadth first search, return an ordered array list for further manipulation.
+    @Override
     public ArrayList<BSTNode<T>> bfs() {
         final ArrayList<BSTNode<T>> bfsResult = new ArrayList<BSTNode<T>>();
         final Queue<BSTNode<T>> queue = new LinkedList<BSTNode<T>>();
@@ -102,6 +107,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // Depth first search, return an ordered array list for further manipulation.
+    @Override
     public ArrayList<BSTNode<T>> dfs() {
         final ArrayList<BSTNode<T>> dfsResult = new ArrayList<BSTNode<T>>();
         final Stack<BSTNode<T>> stack = new Stack<BSTNode<T>>();
@@ -124,6 +130,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // Using BFS here. Rewrite as you want.
+    @Override
     public BSTNode<T> getByIndex(final int i) {
         BSTNode<T> result = null;
         final Queue<BSTNode<T>> queue = new LinkedList<BSTNode<T>>();
@@ -150,6 +157,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // An interface of get method. So user can provide less parameter.
+    @Override
     public BSTNode<T> get(final T data) {
         return this.get(data, this.getRoot());
     }
@@ -174,6 +182,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
 
     // An interface of finding maximum data in left subtree, only provide such searching for root's subtree. Change the
     // availability of method below this method to public if you really need it.
+    @Override
     public BSTNode<T> lMax() {
         return this.lMax(this.getRoot());
     }
@@ -194,6 +203,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
 
     // An interface of finding minimum data in right subtree, only provide such searching for root's subtree. Change
     // the availability of method below this method to public if you really need it.
+    @Override
     public BSTNode<T> rMin() {
         return this.rMin(this.getRoot());
     }
@@ -213,6 +223,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // Delete node by index. Call delete by data inside.
+    @Override
     public void delByIndex(final int index) {
         if (this.size() == 0) {
             System.out.println("This is an empty tree.");
@@ -228,6 +239,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
 
     // Delete by data. Do the decrement of size just one time here. Or there maybe problems during recursion process.
     // This is another critical reason I write a little interface here. It's not only just for convenience.
+    @Override
     public void del(final T data) {
         if (this.size() == 0) {
             System.out.println("This is an empty tree.");
@@ -293,6 +305,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
         }
     }
 
+    @Override
     public String printBFS() {
         final StringBuilder sb = new StringBuilder();
         for (final BSTNode<T> node : this.bfs()) {
@@ -301,6 +314,7 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
         return sb.toString();
     }
 
+    @Override
     public String printDFS() {
         final StringBuilder sb = new StringBuilder();
         for (final BSTNode<T> node : this.dfs()) {
@@ -318,12 +332,12 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
             return sb.toString();
         }
 
-        sb.append("The BFS traversal for this binary search tree goes like below:\n");
+        sb.append("This is a " + this.getClass().getName() + ".\n\nThe BFS traversal for this tree goes like below:\n");
         for (final BSTNode<T> node : this.bfs()) {
             sb.append("Node(" + node.getIndex() + ", " + node.getData() + ") ");
         }
 
-        sb.append("\n\nThe DFS traversal for this binary search tree goes like below:\n");
+        sb.append("\n\nThe DFS traversal for this tree goes like below:\n");
         for (final BSTNode<T> node : this.dfs()) {
             sb.append("Node(" + node.getIndex() + ", " + node.getData() + ") ");
         }
