@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @date 2017年11月9日 上午9:48:19 
  *  
  */
-public class RoundRobinComparator<T> implements Comparator<int[]> {
+public class RoundRobinComparator implements Comparator<int[]> {
 
     @Override
     public int compare(final int[] arg0, final int[] arg1) {

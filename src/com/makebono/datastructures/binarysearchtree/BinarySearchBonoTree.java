@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+import com.makebono.datastructures.binarysearchtree.BSTInterface.BinarySearchTree;
+
 /** 
  * @ClassName: BinarySearchTree 
  * @Description: BST implementation 
@@ -14,28 +16,22 @@ import java.util.Stack;
  * @date 2017年11月7日 上午9:55:56 
  *  
  */
-public class BinarySearchTree<T> {
+public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     private BSTNode<T> root;
     private int size;
 
     // Need a comparator to help ordering the tree. You may need to write your own.
-    private Comparator<T> sideKick;
+    private final Comparator<T> sideKick;
 
-    public BinarySearchTree(final Comparator<T> sideKick) {
+    public BinarySearchBonoTree(final Comparator<T> sideKick) {
         this.root = null;
         this.size = 0;
         this.sideKick = sideKick;
     }
 
-    public BinarySearchTree(final BSTNode<T> root, final Comparator<T> sideKick) {
+    public BinarySearchBonoTree(final BSTNode<T> root, final Comparator<T> sideKick) {
         this.root = root;
         this.size = 1;
-        this.sideKick = sideKick;
-    }
-
-    public void initiate(final Comparator<T> sideKick) {
-        this.root = null;
-        this.size = 0;
         this.sideKick = sideKick;
     }
 

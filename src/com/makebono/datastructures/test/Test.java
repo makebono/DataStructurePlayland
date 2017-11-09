@@ -1,8 +1,9 @@
 package com.makebono.datastructures.test;
 
-import com.makebono.datastructures.linkedlist.LLNode;
-import com.makebono.datastructures.queue.RoundRobinBonoQueue;
-import com.makebono.datastructures.tools.roundrobincomparator.RoundRobinComparator;
+import com.makebono.datastructures.binarysearchtree.BSTNode;
+import com.makebono.datastructures.binarysearchtree.BinarySearchBonoTree;
+import com.makebono.datastructures.binarysearchtree.BSTInterface.BinarySearchTree;
+import com.makebono.datastructures.tools.tcomparator.TComparator;
 
 /** 
  * @ClassName: Test 
@@ -13,23 +14,23 @@ import com.makebono.datastructures.tools.roundrobincomparator.RoundRobinComparat
  */
 public class Test {
     public static <T> void main(final String[] args) {
-        /*
-        final BSTNode<int[]> n1 = new BSTNode<int[]>(1, 5);
-        final BSTNode<int[]> n3 = new BSTNode<int[]>(3, 2);
-        final BSTNode<int[]> n4 = new BSTNode<int[]>(4, 10);
-        final BSTNode<int[]> n5 = new BSTNode<int[]>(5, 15);
-        final BSTNode<int[]> n6 = new BSTNode<int[]>(6, 1);
-        final BSTNode<int[]> n7 = new BSTNode<int[]>(7, 3);
-        final BSTNode<int[]> n8 = new BSTNode<int[]>(8, 0);
-        final BSTNode<int[]> n9 = new BSTNode<int[]>(9, 16);
-        final BSTNode<int[]> n10 = new BSTNode<int[]>(10, 9);
-        final BSTNode<int[]> n11 = new BSTNode<int[]>(11, 8);
-        final BSTNode<int[]> n12 = new BSTNode<int[]>(12, 7);
-        final BSTNode<int[]> n13 = new BSTNode<int[]>(13, 12);
-        
-        final TComparator<int[]> sideKick = new TComparator<int[]>();
-        final BinarySearchTree<int[]> bst = new BinarySearchTree<int[]>(n1, sideKick);
-        
+
+        final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
+        final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
+        final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
+        final BSTNode<Integer> n5 = new BSTNode<Integer>(5, 15);
+        final BSTNode<Integer> n6 = new BSTNode<Integer>(6, 1);
+        final BSTNode<Integer> n7 = new BSTNode<Integer>(7, 3);
+        final BSTNode<Integer> n8 = new BSTNode<Integer>(8, 0);
+        final BSTNode<Integer> n9 = new BSTNode<Integer>(9, 16);
+        final BSTNode<Integer> n10 = new BSTNode<Integer>(10, 9);
+        final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
+        final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
+        final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
+
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
+        final BinarySearchTree<Integer> bst = new BinarySearchBonoTree<Integer>(n1, sideKick);
+
         bst.addNode(n3);
         bst.addNode(n4);
         bst.addNode(n5);
@@ -41,7 +42,7 @@ public class Test {
         bst.addNode(n11);
         bst.addNode(n12);
         bst.addNode(n13);
-        
+
         bst.del(33);
         bst.del(5);
         bst.delByIndex(99);
@@ -51,24 +52,25 @@ public class Test {
         System.out.println(bst);
         bst.del(3);
         bst.delByIndex(1);
+        /*
         
-        final TComparator<int[]> sideKick = new TComparator<int[]>();
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
         
-        final LLNode<int[]> n1 = new LLNode<int[]>(1, 5);
-        final LLNode<int[]> n2 = new LLNode<int[]>(2, 2);
-        final LLNode<int[]> n3 = new LLNode<int[]>(3, 6);
-        final LLNode<int[]> n4 = new LLNode<int[]>(4, 3);
-        final LLNode<int[]> n5 = new LLNode<int[]>(5, 4);
-        final LLNode<int[]> n6 = new LLNode<int[]>(6, 1);
-        final LLNode<int[]> nn1 = new LLNode<int[]>(1, 5);
-        final LLNode<int[]> nn2 = new LLNode<int[]>(2, 2);
-        final LLNode<int[]> nn3 = new LLNode<int[]>(3, 6);
-        final LLNode<int[]> nn4 = new LLNode<int[]>(4, 3);
-        final LLNode<int[]> nn5 = new LLNode<int[]>(5, 4);
-        final LLNode<int[]> nn6 = new LLNode<int[]>(6, 1);
+        final LLNode<Integer> n1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> n2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> n3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> n4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> n5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> n6 = new LLNode<Integer>(6, 1);
+        final LLNode<Integer> nn1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> nn2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> nn3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> nn4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> nn5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> nn6 = new LLNode<Integer>(6, 1);
         
-        final LinkedList<int[]> oll = new OrderedLinkedList<int[]>(sideKick);
-        final LinkedList<int[]> ull = new UnorderedLinkedList<int[]>(sideKick);
+        final LinkedList<Integer> oll = new OrderedLinkedList<Integer>(sideKick);
+        final LinkedList<Integer> ull = new UnorderedLinkedList<Integer>(sideKick);
         
         oll.add(n1);
         oll.add(n2);
@@ -101,23 +103,23 @@ public class Test {
         oll.destroy();
         System.out.println(oll);
         
-        final TComparator<int[]> sideKick = new TComparator<int[]>();
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
         final HashFunction hf = new ExampleHashFunction();
         
-        final BSTNode<int[]> n1 = new BSTNode<int[]>(1, 5);
-        final BSTNode<int[]> n3 = new BSTNode<int[]>(3, 2);
-        final BSTNode<int[]> n4 = new BSTNode<int[]>(4, 10);
-        final BSTNode<int[]> n5 = new BSTNode<int[]>(5, 15);
-        final BSTNode<int[]> n6 = new BSTNode<int[]>(6, 1);
-        final BSTNode<int[]> n7 = new BSTNode<int[]>(7, 3);
-        final BSTNode<int[]> n8 = new BSTNode<int[]>(8, 0);
-        final BSTNode<int[]> n9 = new BSTNode<int[]>(9, 16);
-        final BSTNode<int[]> n10 = new BSTNode<int[]>(10, 9);
-        final BSTNode<int[]> n11 = new BSTNode<int[]>(11, 8);
-        final BSTNode<int[]> n12 = new BSTNode<int[]>(12, 7);
-        final BSTNode<int[]> n13 = new BSTNode<int[]>(13, 12);
+        final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
+        final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
+        final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
+        final BSTNode<Integer> n5 = new BSTNode<Integer>(5, 15);
+        final BSTNode<Integer> n6 = new BSTNode<Integer>(6, 1);
+        final BSTNode<Integer> n7 = new BSTNode<Integer>(7, 3);
+        final BSTNode<Integer> n8 = new BSTNode<Integer>(8, 0);
+        final BSTNode<Integer> n9 = new BSTNode<Integer>(9, 16);
+        final BSTNode<Integer> n10 = new BSTNode<Integer>(10, 9);
+        final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
+        final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
+        final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
         
-        final HashTable<int[]> ht = new HashTable<int[]>(4, hf, sideKick);
+        final HashTable<Integer> ht = new HashTable<Integer>(4, hf, sideKick);
         ht.add(n1);
         ht.add(n3);
         ht.add(n4);
@@ -141,30 +143,30 @@ public class Test {
         ht.destroy();
         System.out.println(ht);
         
-        final TComparator<int[]> sideKick = new TComparator<int[]>();
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
         
-        final LLNode<int[]> n1 = new LLNode<int[]>(1, 5);
-        final LLNode<int[]> n2 = new LLNode<int[]>(2, 2);
-        final LLNode<int[]> n3 = new LLNode<int[]>(3, 6);
-        final LLNode<int[]> n4 = new LLNode<int[]>(4, 3);
-        final LLNode<int[]> n5 = new LLNode<int[]>(5, 4);
-        final LLNode<int[]> n6 = new LLNode<int[]>(6, 1);
-        final LLNode<int[]> nn1 = new LLNode<int[]>(1, 5);
-        final LLNode<int[]> nn2 = new LLNode<int[]>(2, 2);
-        final LLNode<int[]> nn3 = new LLNode<int[]>(3, 6);
-        final LLNode<int[]> nn4 = new LLNode<int[]>(4, 3);
-        final LLNode<int[]> nn5 = new LLNode<int[]>(5, 4);
-        final LLNode<int[]> nn6 = new LLNode<int[]>(6, 1);
-        final LLNode<int[]> nnn1 = new LLNode<int[]>(1, 5);
-        final LLNode<int[]> nnn2 = new LLNode<int[]>(2, 2);
-        final LLNode<int[]> nnn3 = new LLNode<int[]>(3, 6);
-        final LLNode<int[]> nnn4 = new LLNode<int[]>(4, 3);
-        final LLNode<int[]> nnn5 = new LLNode<int[]>(5, 4);
-        final LLNode<int[]> nnn6 = new LLNode<int[]>(6, 1);
+        final LLNode<Integer> n1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> n2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> n3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> n4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> n5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> n6 = new LLNode<Integer>(6, 1);
+        final LLNode<Integer> nn1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> nn2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> nn3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> nn4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> nn5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> nn6 = new LLNode<Integer>(6, 1);
+        final LLNode<Integer> nnn1 = new LLNode<Integer>(1, 5);
+        final LLNode<Integer> nnn2 = new LLNode<Integer>(2, 2);
+        final LLNode<Integer> nnn3 = new LLNode<Integer>(3, 6);
+        final LLNode<Integer> nnn4 = new LLNode<Integer>(4, 3);
+        final LLNode<Integer> nnn5 = new LLNode<Integer>(5, 4);
+        final LLNode<Integer> nnn6 = new LLNode<Integer>(6, 1);
         
-        final Queue<int[]> q = new BonoQueue<int[]>(sideKick);
-        final Queue<int[]> q2 = new PriorityBonoQueue<int[]>(sideKick);
-        final Stack<int[]> s = new BonoStack<int[]>(sideKick);
+        final Queue<Integer> q = new BonoQueue<Integer>(sideKick);
+        final Queue<Integer> q2 = new PriorityBonoQueue<Integer>(sideKick);
+        final Stack<Integer> s = new BonoStack<Integer>(sideKick);
         q.add(n1);
         q.add(n2);
         q.add(n3);
@@ -183,7 +185,7 @@ public class Test {
         s.add(nnn4);
         s.add(nnn5);
         s.add(nnn6);
-        s.add(new LLNode<int[]>(1, 333));
+        s.add(new LLNode<Integer>(1, 333));
         System.out.println(q);
         System.out.println(q2);
         System.out.println(s);
@@ -193,28 +195,28 @@ public class Test {
             System.out.printf("Poping out from stack: %d\n", s.pop().getIndex());
         }
         System.out.println(s);
-        */
-
+        
+        
         final LLNode<int[]> n1 = new LLNode<int[]>(1, new int[] { 5, 20 });
         final LLNode<int[]> n2 = new LLNode<int[]>(2, new int[] { 6, 15 });
         final LLNode<int[]> n3 = new LLNode<int[]>(3, new int[] { 1, 10 });
         final LLNode<int[]> n4 = new LLNode<int[]>(4, new int[] { 5, 11 });
         final LLNode<int[]> n5 = new LLNode<int[]>(5, new int[] { 9, 20 });
         final LLNode<int[]> n6 = new LLNode<int[]>(6, new int[] { 11, 9 });
-
-        final RoundRobinComparator<int[]> sideKick = new RoundRobinComparator<int[]>();
-
-        final RoundRobinBonoQueue<int[]> rrq = new RoundRobinBonoQueue<int[]>(sideKick, 10);
-
+        
+        final RoundRobinComparator sideKick = new RoundRobinComparator();
+        
+        final Queue<int[]> rrq = new RoundRobinBonoQueue<int[]>(sideKick, 10);
+        
         rrq.add(n1);
         rrq.add(n2);
         rrq.add(n3);
         rrq.add(n4);
         rrq.add(n5);
         rrq.add(n6);
-
+        
         System.out.println(rrq);
-
+        
         rrq.poll();
         rrq.poll();
         rrq.poll();
@@ -222,6 +224,7 @@ public class Test {
         rrq.poll();
         rrq.poll();
         System.out.println(rrq);
+        */
 
     }
 }
