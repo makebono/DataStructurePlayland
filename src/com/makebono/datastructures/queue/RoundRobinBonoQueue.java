@@ -16,7 +16,7 @@ import com.makebono.datastructures.tools.roundrobincomparator.RoundRobinComparat
 public class RoundRobinBonoQueue<T> extends UnorderedLinkedList<int[]> implements Queue<int[]> {
     private int quantum;
 
-    public RoundRobinBonoQueue(final RoundRobinComparator<int[]> sideKick, final int quantum) {
+    public RoundRobinBonoQueue(final RoundRobinComparator sideKick, final int quantum) {
         super(sideKick);
         this.quantum = quantum;
     }

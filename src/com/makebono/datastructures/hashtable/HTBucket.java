@@ -3,7 +3,7 @@ package com.makebono.datastructures.hashtable;
 import java.util.Comparator;
 
 import com.makebono.datastructures.binarysearchtree.BSTNode;
-import com.makebono.datastructures.binarysearchtree.BinarySearchTree;
+import com.makebono.datastructures.binarysearchtree.BinarySearchBonoTree;
 
 /** 
  * @ClassName: HTBucket 
@@ -12,7 +12,7 @@ import com.makebono.datastructures.binarysearchtree.BinarySearchTree;
  * @date 2017年11月8日 下午12:02:50 
  *  
  */
-public class HTBucket<T> extends BinarySearchTree<T> {
+public class HTBucket<T> extends BinarySearchBonoTree<T> {
     private int hashKey;
 
     public HTBucket(final Comparator<T> sideKick) {
