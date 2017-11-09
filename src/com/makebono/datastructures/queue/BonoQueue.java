@@ -28,7 +28,7 @@ public class BonoQueue<T> extends UnorderedLinkedList<T> implements Queue<T> {
     @Override
     public LLNode<T> poll() {
         final LLNode<T> temp = this.getHead();
-        this.del(this.getHead().getData());
+        this.delByIndex(this.getHead().getIndex());
         return temp;
     }
 

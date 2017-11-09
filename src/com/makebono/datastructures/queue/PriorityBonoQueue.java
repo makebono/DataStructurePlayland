@@ -21,7 +21,7 @@ public class PriorityBonoQueue<T> extends OrderedLinkedList<T> implements Queue<
     @Override
     public LLNode<T> poll() {
         final LLNode<T> temp = this.getHead();
-        this.del(this.getHead().getData());
+        this.delByIndex(this.getHead().getIndex());
         return temp;
     }
 
