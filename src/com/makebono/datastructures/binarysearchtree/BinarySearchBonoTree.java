@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-import com.makebono.datastructures.binarysearchtree.BSTInterface.BinarySearchTree;
+import com.makebono.datastructures.binarysearchtree.bstinterface.BinarySearchTree;
 
 /** 
  * @ClassName: BinarySearchTree 
@@ -17,21 +17,15 @@ import com.makebono.datastructures.binarysearchtree.BSTInterface.BinarySearchTre
  *  
  */
 public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
-    private BSTNode<T> root;
-    private int size;
+    protected BSTNode<T> root;
+    protected int size;
 
     // Need a comparator to help ordering the tree. You may need to write your own.
-    private final Comparator<T> sideKick;
+    protected final Comparator<T> sideKick;
 
     public BinarySearchBonoTree(final Comparator<T> sideKick) {
         this.root = null;
         this.size = 0;
-        this.sideKick = sideKick;
-    }
-
-    public BinarySearchBonoTree(final BSTNode<T> root, final Comparator<T> sideKick) {
-        this.root = root;
-        this.size = 1;
         this.sideKick = sideKick;
     }
 
@@ -54,30 +48,32 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     @Override
     public void addNode(final BSTNode<T> node) {
         this.addNode(node, this.getRoot());
-        size++;
+        this.size++;
     }
 
     // Follows definition of BST.
+    // Well, because I am lazy, from now the data is also force to be unique in tree.
     private void addNode(final BSTNode<T> node, final BSTNode<T> root) {
         if (this.getRoot() == null) {
             this.root = node;
         } else {
             if (this.getByIndex(node.getIndex()) != null) {
                 System.out.println("Index should be unique in this tree.");
-                size--;
+                this.size--;
             } else {
-                if (this.sideKick.compare(node.getData(), root.getData()) <= 0) {
-                    if (root.getL() == null) {
-                        root.setL(node);
-                    } else {
+                if (this.sideKick.compare(node.getData(), root.getData()) < 0) {
+                    if (root.getL() == null) {} else {
                         addNode(node, root.getL());
                     }
-                } else {
+                } else if (this.sideKick.compare(node.getData(), root.getData()) > 0) {
                     if (root.getR() == null) {
                         root.setR(node);
                     } else {
                         addNode(node, root.getR());
                     }
+                } else {
+                    System.out.println("Data should be unique in this tree.");
+                    this.size--;
                 }
             }
         }
@@ -188,11 +184,11 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // Implementation of finding maximum data in left subtree.
-    private BSTNode<T> lMax(final BSTNode<T> root) {
+    protected BSTNode<T> lMax(final BSTNode<T> root) {
         BSTNode<T> result = null;
         if (root.getL() != null) {
             result = root.getL();
-            while (result.getR() != null) {
+            while (result.getR() != null && result.getR().getData() != null) {
                 result = result.getR();
             }
             return result;
@@ -209,11 +205,11 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     }
 
     // Implementation of finding minimum data in right subtree.
-    private BSTNode<T> rMin(final BSTNode<T> root) {
+    protected BSTNode<T> rMin(final BSTNode<T> root) {
         BSTNode<T> result = null;
         if (root.getR() != null) {
             result = root.getR();
-            while (result.getL() != null) {
+            while (result.getL() != null && result.getL().getData() != null) {
                 result = result.getL();
             }
             return result;
