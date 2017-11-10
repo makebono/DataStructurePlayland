@@ -1,10 +1,3 @@
-/**   
- * @Title: BonoQueue.java 
- * @Package com.makebono.datastructures.queue 
- * @Description: TODO(用一句话描述该文件做什么) 
- * @author tangxj
- * @date 2017年11月8日 下午3:31:00  
- */
 package com.makebono.datastructures.queue;
 
 import java.util.Comparator;
