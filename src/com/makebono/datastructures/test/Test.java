@@ -1,8 +1,7 @@
 package com.makebono.datastructures.test;
 
 import com.makebono.datastructures.binarysearchtree.BSTNode;
-import com.makebono.datastructures.binarysearchtree.BinarySearchBonoTree;
-import com.makebono.datastructures.binarysearchtree.BSTInterface.BinarySearchTree;
+import com.makebono.datastructures.binarysearchtree.RedBlackBonoTree;
 import com.makebono.datastructures.tools.tcomparator.TComparator;
 
 /** 
@@ -14,7 +13,7 @@ import com.makebono.datastructures.tools.tcomparator.TComparator;
  */
 public class Test {
     public static <T> void main(final String[] args) {
-
+        /*
         final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
         final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
         final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
@@ -27,10 +26,11 @@ public class Test {
         final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
         final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
         final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
-
+        
         final TComparator<Integer> sideKick = new TComparator<Integer>();
-        final BinarySearchTree<Integer> bst = new BinarySearchBonoTree<Integer>(n1, sideKick);
-
+        final BinarySearchTree<Integer> bst = new BinarySearchBonoTree<Integer>(sideKick);
+        
+        bst.addNode(n1);
         bst.addNode(n3);
         bst.addNode(n4);
         bst.addNode(n5);
@@ -42,9 +42,9 @@ public class Test {
         bst.addNode(n11);
         bst.addNode(n12);
         bst.addNode(n13);
-
+        
         bst.del(33);
-        bst.del(5);
+        
         bst.delByIndex(99);
         bst.delByIndex(9);
         System.out.println(bst);
@@ -52,7 +52,7 @@ public class Test {
         System.out.println(bst);
         bst.del(3);
         bst.delByIndex(1);
-        /*
+        
         
         final TComparator<Integer> sideKick = new TComparator<Integer>();
         
@@ -226,5 +226,40 @@ public class Test {
         System.out.println(rrq);
         */
 
+        final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
+        final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
+        final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
+        final BSTNode<Integer> n5 = new BSTNode<Integer>(5, 15);
+        final BSTNode<Integer> n6 = new BSTNode<Integer>(6, 1);
+        final BSTNode<Integer> n7 = new BSTNode<Integer>(7, 3);
+        final BSTNode<Integer> n8 = new BSTNode<Integer>(8, 0);
+        final BSTNode<Integer> n9 = new BSTNode<Integer>(9, 16);
+        final BSTNode<Integer> n10 = new BSTNode<Integer>(10, 9);
+        final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
+        final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
+        final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
+
+        final TComparator<Integer> sideKick = new TComparator<Integer>();
+        final RedBlackBonoTree<Integer> rbt = new RedBlackBonoTree<Integer>(sideKick);
+
+        rbt.addNode(n1);
+        rbt.addNode(n3);
+        rbt.addNode(n4);
+        rbt.addNode(n5);
+        rbt.addNode(n6);
+        rbt.addNode(n7);
+        rbt.addNode(n8);
+        rbt.addNode(n9);
+        rbt.addNode(n10);
+        rbt.addNode(n11);
+        rbt.addNode(n12);
+        rbt.addNode(n13);
+
+        rbt.addNode(new BSTNode<Integer>(111, 5));
+        System.out.println(rbt);
+
+        rbt.delByIndex(5);
+
+        System.out.println(rbt);
     }
 }

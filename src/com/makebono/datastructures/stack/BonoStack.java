@@ -21,7 +21,7 @@ public class BonoStack<T> extends UnorderedLinkedList<T> implements Stack<T> {
     @Override
     public LLNode<T> pop() {
         final LLNode<T> temp = this.getTail();
-        this.del(this.getTail().getData());
+        this.delByIndex(this.getTail().getIndex());
         return temp;
     }
 

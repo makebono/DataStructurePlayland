@@ -2,7 +2,6 @@ package com.makebono.datastructures.hashtable;
 
 import java.util.Comparator;
 
-import com.makebono.datastructures.binarysearchtree.BSTNode;
 import com.makebono.datastructures.binarysearchtree.BinarySearchBonoTree;
 
 /** 
@@ -17,10 +16,6 @@ public class HTBucket<T> extends BinarySearchBonoTree<T> {
 
     public HTBucket(final Comparator<T> sideKick) {
         super(sideKick);
-    }
-
-    public HTBucket(final BSTNode<T> root, final Comparator<T> sideKick) {
-        super(root, sideKick);
     }
 
     protected void assignHashKey(final int hashKey) {

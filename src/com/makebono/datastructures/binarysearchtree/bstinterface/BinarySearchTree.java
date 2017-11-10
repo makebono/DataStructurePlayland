@@ -1,4 +1,4 @@
-package com.makebono.datastructures.binarysearchtree.BSTInterface;
+package com.makebono.datastructures.binarysearchtree.bstinterface;
 
 import java.util.ArrayList;
 
