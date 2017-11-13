@@ -258,7 +258,7 @@ public class Test {
         rbt.addNode(new BSTNode<Integer>(111, 5));
         System.out.println(rbt);
 
-        rbt.delByIndex(5);
+        rbt.del(5);
 
         System.out.println(rbt);
     }
