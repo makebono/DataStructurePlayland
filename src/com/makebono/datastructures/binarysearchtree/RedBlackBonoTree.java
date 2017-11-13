@@ -11,6 +11,8 @@ import java.util.Comparator;
  *  
  */
 public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
+    // I set null as data and crimson 'c' as color for the sentinel node(nil node). Every element with nil node
+    // attached, considered to links to same sentinel node.
     private final BSTNode<T> sentinel = new BSTNode<T>(0, null, 'c');;
 
     public RedBlackBonoTree(final Comparator<T> sideKick) {
@@ -36,6 +38,7 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
         this.size++;
     }
 
+    // Same idea with normal BST with a method balancer called after manipulation to keep the properties of RBT
     private void addNode(final BSTNode<T> node, final BSTNode<T> root) {
         if (node.getIndex() == this.sentinel.getIndex()) {
             System.out.println("Index 0 is limited to the sentinel node. You can not add such node.");
@@ -86,6 +89,20 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
     }
 
     @Override
+    public void delByIndex(final int index) {
+        if (this.size() == 0) {
+            System.out.println("This is an empty tree.");
+        } else {
+            final BSTNode<T> target = this.getByIndex(index);
+            if (target != null) {
+                this.del(target.getData());
+            } else {
+                System.out.println("Your input isn't in this tree.");
+            }
+        }
+    }
+
+    @Override
     public void del(final T data) {
         if (this.size() == 0) {
             System.out.println("This is an empty tree.");
@@ -95,6 +112,7 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
         }
     }
 
+    // Transplant "from" subtree to origin and delete the origin one.
     private void transPlant(final BSTNode<T> origin, final BSTNode<T> from) {
         if (origin.getP() == this.getSentinel()) {
             this.setRoot(from);
@@ -106,6 +124,8 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
         from.setP(origin.getP());
     }
 
+    // Two nodes A and B being left spined. After the spin, A becomes B's left child, B's left child becomes A's right
+    // child. And A's parent becomes B's parent.
     private void leftSpin(final BSTNode<T> node) {
         final BSTNode<T> temp = node.getR();
         node.setR(temp.getL());
@@ -128,6 +148,8 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
         node.setP(temp);
     }
 
+    // Two nodes A and B being left spined. After the spin, B becomes A's right child, A's right child becomes B's left
+    // child. And B's parent becomes A's parent.
     private void rightSpin(final BSTNode<T> node) {
         final BSTNode<T> temp = node.getL();
         node.setL(temp.getR());
@@ -150,6 +172,9 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
         node.setP(temp);
     }
 
+    // There are 3(cases) x 2(depends on cursor's parent is left or right child) situations.
+    // Use while(cursor's parent == red) as judgement case, remember to move the cursor pointer,
+    // iteratively balance the tree.
     private void balancer(final BSTNode<T> node) {
         BSTNode<T> uncle;
         BSTNode<T> temp = node;
@@ -204,49 +229,81 @@ public class RedBlackBonoTree<T> extends BinarySearchBonoTree<T> {
         this.getRoot().setColor('b');
     }
 
-    // Errors exist. Needs to be modified.
-    public void delete(final T data) {
+    // Same idea as in normal BST. But needs to track down the color of node to be delete. And call enforcer at the end.
+    private void delete(final T data) {
         if (data == null) {
             System.out.println("You cannot delete the sentinel node.");
             this.size++;
         } else {
             final BSTNode<T> node = this.get(data);
-            BSTNode<T> temp = node;
-            BSTNode<T> temp2;
-            char colorBuffer = temp.getColor();
 
-            if (node.getL() == this.getSentinel()) {
-                temp2 = node.getR();
-                this.transPlant(node, node.getR());
-            } else if (node.getR() == this.getSentinel()) {
-                temp2 = node.getL();
-                this.transPlant(node, node.getL());
-            } else {
-                temp = this.rMin(node);
-                // System.out.println(temp);
-                colorBuffer = temp.getColor();
-                temp2 = temp.getR();
+            if (node != this.getSentinel()) {
 
-                if (temp.getP() == node) {
-                    temp2.setP(temp);
+                BSTNode<T> temp = node;
+                BSTNode<T> temp2;
+                char colorBuffer = temp.getColor();
+
+                if (node.getL() == this.getSentinel()) {
+                    temp2 = node.getR();
+                    this.transPlant(node, node.getR());
+                } else if (node.getR() == this.getSentinel()) {
+                    temp2 = node.getL();
+                    this.transPlant(node, node.getL());
                 } else {
-                    this.transPlant(temp, temp.getR());
-                    temp.setR(node.getR());
-                    temp.getR().setP(temp);
+                    temp = this.rMin(node);
+                    // System.out.println(temp);
+                    colorBuffer = temp.getColor();
+                    temp2 = temp.getR();
+
+                    if (temp.getP() == node) {
+                        temp2.setP(temp);
+                    } else {
+                        this.transPlant(temp, temp.getR());
+                        temp.setR(node.getR());
+                        temp.getR().setP(temp);
+                    }
+
+                    this.transPlant(node, temp);
+                    temp.setL(node.getL());
+                    temp.getL().setP(temp);
+                    temp.setColor(node.getColor());
                 }
 
-                this.transPlant(node, temp);
-                temp.setL(node.getL());
-                temp.getL().setP(temp);
-                temp.setColor(node.getColor());
-            }
-
-            if (colorBuffer == 'b') {
-                enforcer(temp2);
+                if (colorBuffer == 'b') {
+                    this.enforcer(temp2);
+                }
+            } else {
+                System.out.println("Your input isn't in this tree");
+                this.size++;
             }
         }
     }
 
+    @Override
+    public BSTNode<T> get(final T data) {
+        return this.get(data, this.getRoot());
+    }
+
+    // Because instead of null pointer, sentinel node is used here for null children, need a little rewrite as well.
+    private BSTNode<T> get(final T data, final BSTNode<T> root) {
+        final BSTNode<T> result = this.getSentinel();
+        if (root == this.getSentinel()) {
+            return result;
+        } else {
+            if (this.sideKick.compare(data, root.getData()) == 0) {
+                return root;
+            } else {
+                if (this.sideKick.compare(data, root.getData()) < 0) {
+                    return get(data, root.getL());
+                } else {
+                    return get(data, root.getR());
+                }
+            }
+        }
+    }
+
+    // It is actually also a balancer, but for deletion balancing. To distinguish it from blancer method, call it as
+    // enforcer. 4 x 2(depends on if cursor is the left or right child) situations here
     private void enforcer(final BSTNode<T> node) {
         BSTNode<T> cursor = node;
         while (cursor != this.getRoot() && cursor.getColor() == 'b') {
