@@ -1,8 +1,8 @@
 package com.makebono.datastructures.test;
 
-import com.makebono.datastructures.binarysearchtree.BSTNode;
-import com.makebono.datastructures.binarysearchtree.RedBlackBonoTree;
-import com.makebono.datastructures.tools.tcomparator.TComparator;
+import com.makebono.datastructures.graph.BonoGraph;
+import com.makebono.datastructures.graph.Vertex;
+import com.makebono.datastructures.graph.graphInterface.Graph;
 
 /** 
  * @ClassName: Test 
@@ -224,8 +224,8 @@ public class Test {
         rrq.poll();
         rrq.poll();
         System.out.println(rrq);
-        */
-
+        
+        
         final BSTNode<Integer> n1 = new BSTNode<Integer>(1, 5);
         final BSTNode<Integer> n3 = new BSTNode<Integer>(3, 2);
         final BSTNode<Integer> n4 = new BSTNode<Integer>(4, 10);
@@ -238,10 +238,10 @@ public class Test {
         final BSTNode<Integer> n11 = new BSTNode<Integer>(11, 8);
         final BSTNode<Integer> n12 = new BSTNode<Integer>(12, 7);
         final BSTNode<Integer> n13 = new BSTNode<Integer>(13, 12);
-
+        
         final TComparator<Integer> sideKick = new TComparator<Integer>();
         final RedBlackBonoTree<Integer> rbt = new RedBlackBonoTree<Integer>(sideKick);
-
+        
         rbt.addNode(n1);
         rbt.addNode(n3);
         rbt.addNode(n4);
@@ -254,12 +254,35 @@ public class Test {
         rbt.addNode(n11);
         rbt.addNode(n12);
         rbt.addNode(n13);
-
+        
         rbt.addNode(new BSTNode<Integer>(111, 5));
         System.out.println(rbt);
-
+        
         rbt.del(5);
-
+        
         System.out.println(rbt);
+        */
+        final Vertex<Integer> v1 = new Vertex<Integer>(1, 5, 0, 0);
+        final Vertex<Integer> v2 = new Vertex<Integer>(2, 1, 1, 4);
+        final Vertex<Integer> v3 = new Vertex<Integer>(3, 15, 1.2, 3);
+        final Vertex<Integer> v4 = new Vertex<Integer>(4, 21, 1, 7);
+        final Vertex<Integer> v5 = new Vertex<Integer>(5, 55, 8, 1);
+        final Vertex<Integer> v6 = new Vertex<Integer>(6, 1, 11, 44);
+        final Vertex<Integer> v7 = new Vertex<Integer>(7, 0, 6, 12);
+        final Vertex<Integer> v8 = new Vertex<Integer>(8, 11, 7, 1);
+
+        final Graph<Integer> g = new BonoGraph<Integer>();
+        g.add(v1, v2);
+        g.add(v2, v3);
+        g.add(v3, v4);
+        g.add(v4, v5);
+        g.add(v5, v1);
+        g.add(v4, v1);
+        g.add(v4, v6);
+        g.add(v3, v8);
+        g.add(v6, v7);
+
+        System.out.println(g);
+        System.out.println(g.MST());
     }
 }
