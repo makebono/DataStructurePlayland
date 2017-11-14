@@ -243,8 +243,8 @@ public class BonoGraph<T> implements Graph<T> {
         // Order of vertices depends on when you inserted it. But I'm using ArrayList index to access them, so a
         // temporary ArrayList used here for map the vertices to right order.
         // What I want to see is result.get(1) = Vertex(1). And this means when deploying this graph, the input vertices
-        // shold be in order and complete. For example v1 v2 v3 v4 v6 v5 is acceptable but v1 v2 v3 v5 is not
-        // acceptable.
+        // don't need to be in order but must be complete. For example v1 v2 v3 v4 v6 v5 is acceptable but v1 v2 v3 v5
+        // is not acceptable.
         for (int i = 0; i < this.size(); i++) {
             temp.add(new Vertex<T>(this.getVertices().get(i)));
             result.add(new Vertex<T>(this.getVertices().get(i)));
