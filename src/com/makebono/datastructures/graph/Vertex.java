@@ -23,8 +23,13 @@ public class Vertex<T> extends GenericNode<T> {
         this.edges = new ArrayList<Edge<T>>();
     }
 
-    public void addEdge(final Vertex<T> vertex) {
-        this.edges.add(new Edge<T>(this, vertex));
+    // Clone a 'clean'(without edges attached) vertex.
+    public Vertex(final Vertex<T> vertex) {
+        this.index = vertex.getIndex();
+        this.data = vertex.getData();
+        this.x = vertex.getX();
+        this.y = vertex.getY();
+        this.edges = new ArrayList<Edge<T>>();
     }
 
     public double getX() {
@@ -36,7 +41,7 @@ public class Vertex<T> extends GenericNode<T> {
     }
 
     public ArrayList<Edge<T>> getEdges() {
-        return this.edges;
+        return edges;
     }
 
     public double dist(final Vertex<T> target) {
@@ -44,5 +49,9 @@ public class Vertex<T> extends GenericNode<T> {
         result = Math.pow(this.getX() - target.getX(), 2) + Math.pow(this.getY() - target.getY(), 2);
         result = Math.sqrt(result);
         return result;
+    }
+
+    public void addEdge(final Edge<T> edge) {
+        this.edges.add(edge);
     }
 }

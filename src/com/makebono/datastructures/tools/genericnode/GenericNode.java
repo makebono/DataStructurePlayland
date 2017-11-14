@@ -9,8 +9,8 @@ package com.makebono.datastructures.tools.genericnode;
  *  
  */
 public abstract class GenericNode<T> {
-    private T data;
-    private int index;
+    protected T data;
+    protected int index;
 
     public GenericNode() {
         this.index = 0;
@@ -41,7 +41,7 @@ public abstract class GenericNode<T> {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("This is Node" + index);
+        sb.append("Node" + index);
 
         return sb.toString();
     }
