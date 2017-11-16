@@ -12,6 +12,7 @@ import com.makebono.datastructures.tools.graphcomparator.GraphComparator;
 /** 
  * @ClassName: BonoGraph 
  * @Description: Graph implementation. For easy manipulation, this would be a undirected graph, which means Edge(v1,v2) is considered same as Edge(v2,v1).
+ * Minimum spanning tree generation is applying Kruskal's algorithm. Which is a straight forward greedy algorithm.
  * @author makebono
  * @date 2017年11月10日 上午11:34:29 
  *  
@@ -182,7 +183,7 @@ public class BonoGraph<T> implements Graph<T> {
         return new DFSResult<T>(cycle, visited);
     }
 
-    // Greedily pick next smallest weighted edges to complete a MST, ignore edges causing cycle.
+    // Kruskal's algorithm, greedily pick next smallest weighted edges to complete a MST, ignore edges causing cycle.
     @Override
     public BonoGraph<T> MST() {
         final BonoGraph<T> mst = new BonoGraph<T>();
