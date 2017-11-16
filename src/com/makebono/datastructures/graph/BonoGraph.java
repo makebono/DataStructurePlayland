@@ -193,7 +193,7 @@ public class BonoGraph<T> implements Graph<T> {
         // non-temporary vertices. If using the exsisting vertices in graph, edges information held by them will trigger
         // errors. And they cannot be cleared since you don't want a changing in the original data as side affect of
         // generating MST. And a new instance won't hold the edge information needed later for scanning cycle. So I
-        // wrote a class doing "clean clone" (means only copy the basic informations except the edges) method generating
+        // wrote a method doing "clean clone" (means only copy the basic informations except the edges) generating
         // a clean copy of vertices from original graph.
         final ArrayList<Vertex<T>> newVertices = this.cloneCleanVertices();
 
