@@ -22,6 +22,8 @@ public interface Graph<T> {
 
     void add(Vertex<T> v1, Vertex<T> v2);
 
+    void add(Vertex<T> vertex);
+
     int size();
 
     DFSResult<T> dfs();

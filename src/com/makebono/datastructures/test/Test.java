@@ -1,8 +1,9 @@
 package com.makebono.datastructures.test;
 
-import com.makebono.datastructures.graph.BonoGraph;
+import java.util.Comparator;
+
 import com.makebono.datastructures.graph.Vertex;
-import com.makebono.datastructures.graph.graphInterface.Graph;
+import com.makebono.datastructures.tools.polaranglecomparator.PolarAngleComparator;
 
 /** 
  * @ClassName: Test 
@@ -261,7 +262,7 @@ public class Test {
         rbt.del(5);
         
         System.out.println(rbt);
-        */
+        
         final Vertex<Integer> v1 = new Vertex<Integer>(1, 5, 0, 0);
         final Vertex<Integer> v2 = new Vertex<Integer>(2, 1, 1, 4);
         final Vertex<Integer> v3 = new Vertex<Integer>(3, 15, 1.2, 3);
@@ -270,7 +271,7 @@ public class Test {
         final Vertex<Integer> v6 = new Vertex<Integer>(6, 1, 11, 44);
         final Vertex<Integer> v7 = new Vertex<Integer>(7, 0, 6, 12);
         final Vertex<Integer> v8 = new Vertex<Integer>(8, 11, 7, 1);
-
+        
         final Graph<Integer> g = new BonoGraph<Integer>();
         g.add(v1, v2);
         g.add(v2, v3);
@@ -281,8 +282,17 @@ public class Test {
         g.add(v4, v6);
         g.add(v3, v8);
         g.add(v6, v7);
-
+        
         System.out.println(g);
         System.out.println(g.MST());
+        
+        */
+
+        final Comparator<Vertex<Integer>> pc = new PolarAngleComparator<Integer>();
+
+        final Vertex<Integer> v1 = new Vertex<Integer>(1, 0, 1, -0.5);
+        final Vertex<Integer> v2 = new Vertex<Integer>(2, 0, -1, 1);
+
+        System.out.println(pc.compare(v1, v2));
     }
 }

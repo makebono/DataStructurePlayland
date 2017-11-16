@@ -44,6 +44,20 @@ public class BonoGraph<T> implements Graph<T> {
     }
 
     @Override
+    public void add(final Vertex<T> vertex) {
+        boolean vertexFlag = false;
+        for (final Vertex<T> temp : this.getVertices()) {
+            if (vertex.getIndex() == temp.getIndex()) {
+                vertexFlag = true;
+            }
+        }
+
+        if (!vertexFlag) {
+            this.vertices.add(vertex);
+        }
+    }
+
+    @Override
     public void add(final Vertex<T> v1, final Vertex<T> v2) {
         final Edge<T> edge = new Edge<T>(v1, v2);
         boolean v1Flag = false;
