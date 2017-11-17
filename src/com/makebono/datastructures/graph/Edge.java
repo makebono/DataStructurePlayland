@@ -29,4 +29,9 @@ public class Edge<T> {
     public double getWeight() {
         return this.weight;
     }
+
+    @Override
+    public String toString() {
+        return "E(V" + this.getV1().getIndex() + ", V" + this.getV2().getIndex() + ") ";
+    }
 }
