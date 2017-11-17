@@ -24,8 +24,8 @@ public class PolarAngleComparator<T> implements Comparator<Vertex<T>> {
 
     @Override
     public int compare(final Vertex<T> v1, final Vertex<T> v2) {
-        final double angle1 = Math.atan2(-v1.getY(), -v1.getX());
-        final double angle2 = Math.atan2(-v2.getY(), -v2.getX());
+        final double angle1 = Math.atan2(this.minimumY.getY() - v1.getY(), this.minimumY.getX() - v1.getX());
+        final double angle2 = Math.atan2(this.minimumY.getY() - v2.getY(), this.minimumY.getX() - v2.getX());
 
         if (angle1 < angle2) {
             return -1;
@@ -46,5 +46,4 @@ public class PolarAngleComparator<T> implements Comparator<Vertex<T>> {
             }
         }
     }
-
 }

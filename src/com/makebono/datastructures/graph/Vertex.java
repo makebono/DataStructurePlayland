@@ -54,4 +54,9 @@ public class Vertex<T> extends GenericNode<T> {
     public void addEdge(final Edge<T> edge) {
         this.edges.add(edge);
     }
+
+    @Override
+    public String toString() {
+        return "V" + this.getIndex() + "(" + this.getX() + ", " + this.getY() + ") ";
+    }
 }
