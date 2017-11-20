@@ -38,9 +38,9 @@ public class CounterClockwisedScan<T> implements Comparator<Vertex<T>> {
                     Math.pow(v2.getX() - this.minimumY.getX(), 2) + Math.pow(v2.getY() - this.minimumY.getY(), 2));
 
             if (distance1 < distance2) {
-                return -1;
-            } else if (distance1 > distance2) {
                 return 1;
+            } else if (distance1 > distance2) {
+                return -1;
             } else {
                 return 0;
             }
