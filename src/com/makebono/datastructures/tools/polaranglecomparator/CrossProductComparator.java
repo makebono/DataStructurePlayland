@@ -34,7 +34,21 @@ public class CrossProductComparator<T> implements Comparator<Vertex<T>> {
                     - (v2.getX() - this.minimumY.getX()) * (v1.getY() - this.minimumY.getY()) > 0) {
                 return -1;
             } else {
-                return 0;
+                final double distance1 = Math.sqrt(
+                        Math.pow(v1.getX() - this.minimumY.getX(), 2) + Math.pow(v1.getY() - this.minimumY.getY(), 2));
+                final double distance2 = Math.sqrt(
+                        Math.pow(v2.getX() - this.minimumY.getX(), 2) + Math.pow(v2.getY() - this.minimumY.getY(), 2));
+
+                // System.out.println("d1: " + distance1);
+                // System.out.println("d2: " + distance2);
+
+                if (distance1 < distance2) {
+                    return 1;
+                } else if (distance1 > distance2) {
+                    return -1;
+                } else {
+                    return 0;
+                }
             }
         } else if (this.quadrant(v1) > this.quadrant(v2)) {
             return 1;
@@ -44,11 +58,11 @@ public class CrossProductComparator<T> implements Comparator<Vertex<T>> {
     }
 
     private int quadrant(final Vertex<T> v) {
-        if (v.getX() > 0 && v.getY() >= 0) {
+        if (v.getX() - this.minimumY.getX() > 0 && v.getY() - this.minimumY.getY() >= 0) {
             return 1;
-        } else if (v.getX() <= 0 && v.getY() > 0) {
+        } else if (v.getX() - this.minimumY.getX() <= 0 && v.getY() - this.minimumY.getY() >= 0) {
             return 2;
-        } else if (v.getX() <= 0 && v.getY() <= 0) {
+        } else if (v.getX() - this.minimumY.getX() <= 0 && v.getY() - this.minimumY.getY() < 0) {
             return 3;
         } else {
             return 4;
