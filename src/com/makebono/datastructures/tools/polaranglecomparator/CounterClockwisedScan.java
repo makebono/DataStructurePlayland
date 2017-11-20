@@ -5,20 +5,20 @@ import java.util.Comparator;
 import com.makebono.datastructures.graph.Vertex;
 
 /** 
- * @ClassName: PolarAngleComparator 
- * @Description: Comparator of polar angle for vertices 
+ * @ClassName: Counter clockwised scan 
+ * @Description: Comparator of polar angle for vertices, counter clockwisely scan the graph, using minimumY vertex as its origin. 
  * @author makebono
  * @date 2017年11月16日 下午4:36:38 
  *  
  */
-public class PolarAngleComparator<T> implements Comparator<Vertex<T>> {
+public class CounterClockwisedScan<T> implements Comparator<Vertex<T>> {
     private final Vertex<T> minimumY;
 
-    public PolarAngleComparator() {
+    public CounterClockwisedScan() {
         this.minimumY = new Vertex<T>(1, null, 0, 0);
     }
 
-    public PolarAngleComparator(final Vertex<T> minimumY) {
+    public CounterClockwisedScan(final Vertex<T> minimumY) {
         this.minimumY = minimumY;
     }
 

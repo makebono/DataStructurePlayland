@@ -3,7 +3,7 @@ package com.makebono.datastructures.test;
 import java.util.Comparator;
 
 import com.makebono.datastructures.graph.Vertex;
-import com.makebono.datastructures.tools.polaranglecomparator.PolarAngleComparator;
+import com.makebono.datastructures.tools.polaranglecomparator.CounterClockwisedScan;
 
 /** 
  * @ClassName: Test 
@@ -288,7 +288,7 @@ public class Test {
         
         */
 
-        final Comparator<Vertex<Integer>> pc = new PolarAngleComparator<Integer>();
+        final Comparator<Vertex<Integer>> pc = new CounterClockwisedScan<Integer>();
 
         final Vertex<Integer> v1 = new Vertex<Integer>(1, 0, 1, -0.5);
         final Vertex<Integer> v2 = new Vertex<Integer>(2, 0, -1, 1);
