@@ -1,10 +1,5 @@
 package com.makebono.datastructures.test;
 
-import java.util.Comparator;
-
-import com.makebono.datastructures.graph.Vertex;
-import com.makebono.datastructures.tools.polaranglecomparator.CounterClockwisedScan;
-
 /** 
  * @ClassName: Test 
  * @Description: Test class for data structures
@@ -286,13 +281,15 @@ public class Test {
         System.out.println(g);
         System.out.println(g.MST());
         
-        */
-
+        
+        
         final Comparator<Vertex<Integer>> pc = new CounterClockwisedScan<Integer>();
-
+        
         final Vertex<Integer> v1 = new Vertex<Integer>(1, 0, 1, -0.5);
         final Vertex<Integer> v2 = new Vertex<Integer>(2, 0, -1, 1);
-
+        
         System.out.println(pc.compare(v1, v2));
+        */
+
     }
 }
