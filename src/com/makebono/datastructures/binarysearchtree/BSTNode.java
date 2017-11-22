@@ -11,10 +11,10 @@ import com.makebono.datastructures.tools.genericnode.GenericNode;
  *  
  */
 public class BSTNode<T> extends GenericNode<T> {
-    private char color;
-    private BSTNode<T> lChild;
-    private BSTNode<T> rChild;
-    private BSTNode<T> parent;
+    protected char color;
+    protected BSTNode<T> lChild;
+    protected BSTNode<T> rChild;
+    protected BSTNode<T> parent;
 
     public BSTNode() {
         super();
