@@ -51,11 +51,6 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
         this.size++;
     }
 
-    public void addHuffmanNode(final BSTNode<T> node) {
-        this.addHuffmanNode(node, this.getRoot());
-        this.size++;
-    }
-
     // Follows definition of BST.
     // Well, because I am lazy, from now the data is also force to be unique in tree
     private void addNode(final BSTNode<T> node, final BSTNode<T> root) {
@@ -81,32 +76,6 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
                 } else {
                     System.out.println("Data should be unique in this tree.");
                     this.size--;
-                }
-            }
-        }
-    }
-
-    // For Huffman coding uses. Data don't need to be unique.
-    private void addHuffmanNode(final BSTNode<T> node, final BSTNode<T> root) {
-        if (this.getRoot() == null) {
-            this.root = node;
-        } else {
-            if (this.getByIndex(node.getIndex()) != null) {
-                System.out.println("Index should be unique in this tree.");
-                this.size--;
-            } else {
-                if (this.sideKick.compare(node.getData(), root.getData()) < 0) {
-                    if (root.getL() == null) {
-                        root.setL(node);
-                    } else {
-                        addHuffmanNode(node, root.getL());
-                    }
-                } else if (this.sideKick.compare(node.getData(), root.getData()) >= 0) {
-                    if (root.getR() == null) {
-                        root.setR(node);
-                    } else {
-                        addHuffmanNode(node, root.getR());
-                    }
                 }
             }
         }
