@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /** 
  * @ClassName: HungarianNode 
- * @Description: HungarianNode
+ * @Description: Node for Hungarian tree.
  * @author makebono
  * @date 2017年11月21日 上午10:40:27 
  *  
