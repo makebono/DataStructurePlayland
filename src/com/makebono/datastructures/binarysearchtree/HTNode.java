@@ -14,6 +14,7 @@ public class HTNode extends BSTNode<Integer> {
 
     public HTNode(final int index, final Integer data, final char color) {
         super(index, data, color);
+        this.code = "";
     }
 
     public void setCode(final String code) {
