@@ -32,16 +32,16 @@ public class HuffmanBonoTree {
     }
 
     public ArrayList<HTNode> buildTree(final ArrayList<HTNode> input) {
-        final HuffmanTreeComparator sideKick = new HuffmanTreeComparator();
         ArrayList<HTNode> result = new ArrayList<HTNode>();
+        final HuffmanTreeComparator sideKick = new HuffmanTreeComparator();
         final Queue<HTNode> queue = new PriorityQueue<HTNode>(sideKick);
         queue.addAll(input);
-        input.sort(sideKick);
         HTNode newNode = null;
 
         for (int i = 0; i < input.size() - 1; i++) {
             final HTNode tempL = queue.poll();
             final HTNode tempR = queue.poll();
+            // Dummy node.
             newNode = new HTNode(-(i - 1), tempL.getData() + tempR.getData(), ' ');
             newNode.setL(tempL);
             newNode.setR(tempR);
@@ -58,17 +58,22 @@ public class HuffmanBonoTree {
         final ArrayList<HTNode> result = new ArrayList<HTNode>();
         final Queue<HTNode> queue = new LinkedList<HTNode>();
         queue.add(this.root);
+
+        // Assign empty code to the root. Make it convenient to append relative codes. 1 append to right child and 0
+        // append to left child, as per search going down to the leaves.
         this.root.setCode("");
 
         while (!queue.isEmpty()) {
             final HTNode cursor = queue.poll();
             // Each node will either has a left/right child or it's the leaf.
-            if (cursor.getL() != null && cursor.getR() != null) {
-                cursor.getL().setCode(0 + cursor.getCode());
-                cursor.getR().setCode(1 + cursor.getCode());
+            if (cursor.getL() != null) {
+                // Append code. Remeber to append to its tail, not in front of it.
+                cursor.getL().setCode(cursor.getCode() + 0);
+                cursor.getR().setCode(cursor.getCode() + 1);
                 queue.add(cursor.getL());
                 queue.add(cursor.getR());
             } else {
+                // Leaf reached. Add it to the result.
                 result.add(cursor);
             }
         }
