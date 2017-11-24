@@ -15,12 +15,24 @@ public class Vertex<T> extends GenericNode<T> {
     private final double x;
     private final double y;
     private final ArrayList<Edge<T>> edges;
+    // For backtracking in dfs.
+    private Vertex<T> parent;
+
+    public Vertex(final int index, final T data) {
+        this.index = index;
+        this.data = data;
+        this.x = 0;
+        this.y = 0;
+        this.edges = new ArrayList<Edge<T>>();
+        this.parent = null;
+    }
 
     public Vertex(final int index, final T data, final double x, final double y) {
         super(index, data);
         this.x = x;
         this.y = y;
         this.edges = new ArrayList<Edge<T>>();
+        this.parent = null;
     }
 
     // Clone a 'clean'(without edges attached) vertex.
@@ -32,12 +44,38 @@ public class Vertex<T> extends GenericNode<T> {
         this.edges = new ArrayList<Edge<T>>();
     }
 
+    public void setParent(final Vertex<T> parent) {
+        this.parent = parent;
+    }
+
+    public Vertex<T> getParent() {
+        return this.parent;
+    }
+
     public double getX() {
         return this.x;
     }
 
     public double getY() {
         return this.y;
+    }
+
+    // See if there's an edge connecting this and target vertex. If not, return null, if there is, don't care about the
+    // direction, just return it.
+    public Edge<T> getEdge(final Vertex<T> v2) {
+        for (final Edge<T> cursor : this.getEdges()) {
+            if (cursor.getV2().getIndex() == v2.getIndex()) {
+                return cursor;
+            }
+        }
+
+        for (final Edge<T> cursor : v2.getEdges()) {
+            if (cursor.getV2().getIndex() == this.getIndex()) {
+                return cursor;
+            }
+        }
+
+        return null;
     }
 
     public ArrayList<Edge<T>> getEdges() {

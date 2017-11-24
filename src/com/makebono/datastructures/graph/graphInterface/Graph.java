@@ -3,8 +3,8 @@ package com.makebono.datastructures.graph.graphInterface;
 import java.util.ArrayList;
 import java.util.Queue;
 
-import com.makebono.datastructures.graph.DFSResult;
 import com.makebono.datastructures.graph.Edge;
+import com.makebono.datastructures.graph.SearchResult;
 import com.makebono.datastructures.graph.Vertex;
 
 /** 
@@ -22,11 +22,23 @@ public interface Graph<T> {
 
     void add(Vertex<T> v1, Vertex<T> v2);
 
+    void add(Vertex<T> v1, Vertex<T> v2, int capacity, int flow);
+
     void add(Vertex<T> vertex);
 
     int size();
 
-    DFSResult<T> dfs();
+    void setSource(Vertex<T> source);
+
+    void setSink(Vertex<T> sink);
+
+    Vertex<T> getSource();
+
+    Vertex<T> getSink();
+
+    SearchResult<T> dfs();
+
+    SearchResult<T> bfsPath();
 
     Graph<T> MST();
 
