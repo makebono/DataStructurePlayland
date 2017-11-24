@@ -2,6 +2,7 @@ package com.makebono.datastructures.graph;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
@@ -11,7 +12,8 @@ import com.makebono.datastructures.tools.graphcomparator.GraphComparator;
 
 /** 
  * @ClassName: BonoGraph 
- * @Description: Graph implementation. For easy manipulation, this would be a undirected graph, which means Edge(v1,v2) is considered same as Edge(v2,v1).
+ * @Description: Graph implementation. Normally, this would be a undirected graph, which means Edge(v1,v2) is considered same as Edge(v2,v1).
+ * But if it is used as a flow network. This become directed. This is for Ford-Fulkerson method uses.
  * Minimum spanning tree generation is applying Kruskal's algorithm. Which is a straight forward greedy algorithm.
  * @author makebono
  * @date 2017年11月10日 上午11:34:29 
@@ -27,11 +29,15 @@ public class BonoGraph<T> implements Graph<T> {
     private final Queue<Edge<T>> edges;
     private final Comparator<Edge<T>> sideKick = new GraphComparator<T>();
     private boolean isMST;
+    private Vertex<T> source;
+    private Vertex<T> sink;
 
     public BonoGraph() {
         this.vertices = new ArrayList<Vertex<T>>();
         this.edges = new PriorityQueue<Edge<T>>(this.sideKick);
         this.isMST = false;
+        this.source = null;
+        this.sink = null;
     }
 
     @Override
@@ -43,6 +49,7 @@ public class BonoGraph<T> implements Graph<T> {
         this.isMST = true;
     }
 
+    // Simply add vertex into graph.
     @Override
     public void add(final Vertex<T> vertex) {
         boolean vertexFlag = false;
@@ -57,6 +64,7 @@ public class BonoGraph<T> implements Graph<T> {
         }
     }
 
+    // Add edge into graph.
     @Override
     public void add(final Vertex<T> v1, final Vertex<T> v2) {
         final Edge<T> edge = new Edge<T>(v1, v2);
@@ -83,12 +91,53 @@ public class BonoGraph<T> implements Graph<T> {
 
         boolean edgeExist = false;
 
+        // Treat Edge(v1,v2) and Edge(v2,v1) as the same in undirected graph.
         for (final Edge<T> temp : this.getEdges()) {
-            // Treat Edge(v1,v2) and Edge(v2,v1) as the same.
             if ((temp.getV1().getIndex() == edge.getV1().getIndex()
                     && temp.getV2().getIndex() == edge.getV2().getIndex())
                     || (temp.getV1().getIndex() == edge.getV2().getIndex()
                             && temp.getV2().getIndex() == edge.getV1().getIndex())) {
+                edgeExist = true;
+            }
+        }
+
+        if (!edgeExist) {
+            this.edges.add(edge);
+            v1.addEdge(edge);
+        }
+    }
+
+    // Add edge into flow network
+    @Override
+    public void add(final Vertex<T> v1, final Vertex<T> v2, final int capacity, final int flow) {
+        final Edge<T> edge = new Edge<T>(v1, v2, capacity, flow);
+        boolean v1Flag = false;
+        boolean v2Flag = false;
+
+        // Scan through the record of vertices to see if need to add v1 and v2 in the graph.
+        for (final Vertex<T> temp : this.getVertices()) {
+            if (temp.getIndex() == v1.getIndex()) {
+                v1Flag = true;
+            }
+            if (temp.getIndex() == v2.getIndex()) {
+                v2Flag = true;
+            }
+        }
+
+        if (!v1Flag) {
+            this.vertices.add(v1);
+        }
+
+        if (!v2Flag) {
+            this.vertices.add(v2);
+        }
+
+        boolean edgeExist = false;
+
+        // Directed graph for Ford-Fulkerson method.
+        for (final Edge<T> temp : this.getEdges()) {
+            if ((temp.getV1().getIndex() == edge.getV1().getIndex()
+                    && temp.getV2().getIndex() == edge.getV2().getIndex())) {
                 edgeExist = true;
             }
         }
@@ -155,7 +204,7 @@ public class BonoGraph<T> implements Graph<T> {
     // DFS mainly for detecting cycle in graph. I create a side kicker container class for its return. Includes a
     // boolean flag indicating if it has cycle, and then array list for the vertices visited through the search.
     @Override
-    public DFSResult<T> dfs() {
+    public SearchResult<T> dfs() {
         final ArrayList<Vertex<T>> visited = new ArrayList<Vertex<T>>();
         boolean cycle = false;
         final Stack<Vertex<T>> temp = new Stack<Vertex<T>>();
@@ -194,7 +243,53 @@ public class BonoGraph<T> implements Graph<T> {
             }
         }
 
-        return new DFSResult<T>(cycle, visited);
+        return new SearchResult<T>(cycle, visited);
+    }
+
+    // BFS path search here is for Ford-Fulkerson method. Doesn't work properly yet. Need modified.
+    @Override
+    public SearchResult<T> bfsPath() {
+        for (final Vertex<T> cursor : this.vertices) {
+            cursor.setParent(null);
+        }
+        System.out.println("BFS called.");
+        // For containing result. Will be in reverted order.
+        final ArrayList<Vertex<T>> result = new ArrayList<Vertex<T>>();
+        final boolean cycle = false;
+        final Queue<Vertex<T>> temp = new LinkedList<Vertex<T>>();
+        temp.add(this.getSource());
+        Vertex<T> buffer;
+
+        while (!temp.isEmpty()) {
+            buffer = temp.poll();
+            for (final Edge<T> nextEdge : buffer.getEdges()) {
+                final Vertex<T> nextVertex = nextEdge.getV2();
+                if (nextEdge.getResidualCapacity() > 0 && nextVertex.getParent() == null) {
+                    nextVertex.setParent(buffer);
+
+                    if (nextVertex.getIndex() != this.sink.getIndex()) {
+                        temp.add(nextVertex);
+                    } else {
+                        Vertex<T> backtrackCursor = nextVertex.getParent();
+                        result.add(nextVertex);
+                        result.add(backtrackCursor);
+
+                        while (backtrackCursor.getParent() != null) {
+                            backtrackCursor = backtrackCursor.getParent();
+                            result.add(backtrackCursor);
+                        }
+                    }
+                }
+            }
+        }
+
+        final ArrayList<Vertex<T>> resultByOrder = new ArrayList<Vertex<T>>();
+
+        for (int i = result.size() - 1; i != -1; i--) {
+            resultByOrder.add(result.get(i));
+        }
+
+        return new SearchResult<T>(cycle, resultByOrder);
     }
 
     // Kruskal's algorithm, greedily pick next smallest weighted edges to complete a MST, ignore edges causing cycle.
@@ -270,6 +365,34 @@ public class BonoGraph<T> implements Graph<T> {
         }
 
         return result;
+    }
+
+    @Override
+    public void setSource(final Vertex<T> source) {
+        this.source = source;
+        final Vertex<T> temp = this.vertices.get(0);
+        final int index = this.vertices.indexOf(source);
+        this.vertices.set(0, this.source);
+        this.vertices.set(index, temp);
+    }
+
+    @Override
+    public void setSink(final Vertex<T> sink) {
+        this.sink = sink;
+        final Vertex<T> temp = this.vertices.get(this.vertices.size() - 1);
+        final int index = this.vertices.indexOf(sink);
+        this.vertices.set(this.vertices.size() - 1, this.sink);
+        this.vertices.set(index, temp);
+    }
+
+    @Override
+    public Vertex<T> getSource() {
+        return this.source;
+    }
+
+    @Override
+    public Vertex<T> getSink() {
+        return this.sink;
     }
 
     @Override

@@ -9,11 +9,11 @@ import java.util.ArrayList;
  * @date 2017年11月14日 上午10:32:15 
  *  
  */
-public class DFSResult<T> {
+public class SearchResult<T> {
     private final boolean cycle;
     private final ArrayList<Vertex<T>> result;
 
-    public DFSResult(final boolean cycle, final ArrayList<Vertex<T>> result) {
+    public SearchResult(final boolean cycle, final ArrayList<Vertex<T>> result) {
         this.cycle = cycle;
         this.result = result;
     }
