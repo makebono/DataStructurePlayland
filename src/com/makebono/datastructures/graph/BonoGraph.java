@@ -2,6 +2,7 @@ package com.makebono.datastructures.graph;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -246,16 +247,20 @@ public class BonoGraph<T> implements Graph<T> {
         return new SearchResult<T>(cycle, visited);
     }
 
-    // BFS path search here is for Ford-Fulkerson method. Doesn't work properly yet. Need modified.
+    // BFS path search here is for Ford-Fulkerson method. Return the first legit path found, not looking for a specific
+    // path like shortest path, etc.
     @Override
     public SearchResult<T> bfsPath() {
-        for (final Vertex<T> cursor : this.vertices) {
-            cursor.setParent(null);
-        }
-        System.out.println("BFS called.");
+        // Table for mapping child vertex to parent vertex, help backtracking to generating path. I used parent Vertex
+        // hold in vertices at first but if using it, everytime call a BFS needs to traverse all verices and reset their
+        // parent to null. This will create unnecessary complexity, thus using a temporary hashmap seems more making
+        // sense.
+        final HashMap<Vertex<T>, Vertex<T>> parentMap = new HashMap<Vertex<T>, Vertex<T>>();
+        // System.out.println("BFS called.");
+
         // For containing result. Will be in reverted order.
         final ArrayList<Vertex<T>> result = new ArrayList<Vertex<T>>();
-        final boolean cycle = false;
+        boolean cycle = false;
         final Queue<Vertex<T>> temp = new LinkedList<Vertex<T>>();
         temp.add(this.getSource());
         Vertex<T> buffer;
@@ -264,25 +269,31 @@ public class BonoGraph<T> implements Graph<T> {
             buffer = temp.poll();
             for (final Edge<T> nextEdge : buffer.getEdges()) {
                 final Vertex<T> nextVertex = nextEdge.getV2();
-                if (nextEdge.getResidualCapacity() > 0 && nextVertex.getParent() == null) {
-                    nextVertex.setParent(buffer);
+
+                // If residual capacity <= 0, this vertex is no more available. If parent of this vertex is already
+                // assigned, it's been visited so a cycle is detected.
+                if (nextEdge.getResidualCapacity() > 0 && parentMap.get(nextVertex) == null) {
+                    parentMap.put(nextVertex, buffer);
 
                     if (nextVertex.getIndex() != this.sink.getIndex()) {
                         temp.add(nextVertex);
                     } else {
-                        Vertex<T> backtrackCursor = nextVertex.getParent();
+                        Vertex<T> backtrackCursor = parentMap.get(nextVertex);
                         result.add(nextVertex);
                         result.add(backtrackCursor);
 
-                        while (backtrackCursor.getParent() != null) {
-                            backtrackCursor = backtrackCursor.getParent();
+                        while (parentMap.get(backtrackCursor) != null) {
+                            backtrackCursor = parentMap.get(backtrackCursor);
                             result.add(backtrackCursor);
                         }
                     }
+                } else {
+                    cycle = true;
                 }
             }
         }
 
+        // Result is in reverted order because of the back tracking
         final ArrayList<Vertex<T>> resultByOrder = new ArrayList<Vertex<T>>();
 
         for (int i = result.size() - 1; i != -1; i--) {
