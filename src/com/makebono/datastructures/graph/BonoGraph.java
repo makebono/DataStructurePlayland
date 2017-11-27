@@ -258,7 +258,7 @@ public class BonoGraph<T> implements Graph<T> {
         final HashMap<Vertex<T>, Vertex<T>> parentMap = new HashMap<Vertex<T>, Vertex<T>>();
         // System.out.println("BFS called.");
 
-        // For containing result. Will be in reverted order.
+        // For containing result. Will be in inverted order.
         final ArrayList<Vertex<T>> result = new ArrayList<Vertex<T>>();
         boolean cycle = false;
         final Queue<Vertex<T>> temp = new LinkedList<Vertex<T>>();
@@ -293,7 +293,7 @@ public class BonoGraph<T> implements Graph<T> {
             }
         }
 
-        // Result is in reverted order because of the back tracking
+        // Result is in inverted order because of the back tracking
         final ArrayList<Vertex<T>> resultByOrder = new ArrayList<Vertex<T>>();
 
         for (int i = result.size() - 1; i != -1; i--) {
