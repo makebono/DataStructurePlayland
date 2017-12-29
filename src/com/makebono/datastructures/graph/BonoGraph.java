@@ -65,6 +65,13 @@ public class BonoGraph<T> implements Graph<T> {
         }
     }
 
+    // Add vertices for large input set, some algorithms need this because checking validity costs too much as the size
+    // of input goes up. User takes the responsibilty for the validity here.
+    @Override
+    public void bulkAdd(final Vertex<T> vertex) {
+        this.vertices.add(vertex);
+    }
+
     // Add edge into graph.
     @Override
     public void add(final Vertex<T> v1, final Vertex<T> v2) {

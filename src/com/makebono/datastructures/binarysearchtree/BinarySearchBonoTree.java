@@ -21,7 +21,11 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
     protected int size;
 
     // Need a comparator to help ordering the tree. You may need to write your own.
-    protected final Comparator<T> sideKick;
+    protected Comparator<T> sideKick;
+
+    public BinarySearchBonoTree() {
+
+    }
 
     public BinarySearchBonoTree(final Comparator<T> sideKick) {
         this.root = null;
@@ -301,6 +305,11 @@ public class BinarySearchBonoTree<T> implements BinarySearchTree<T> {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.size == 0;
     }
 
     @Override
