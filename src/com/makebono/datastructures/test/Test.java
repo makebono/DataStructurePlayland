@@ -1,7 +1,5 @@
 package com.makebono.datastructures.test;
 
-import java.util.ArrayList;
-
 /** 
  * @ClassName: Test 
  * @Description: Test class for data structures
@@ -292,20 +290,9 @@ public class Test {
         
         System.out.println(pc.compare(v1, v2));
         */
-        final ArrayList<Integer> q = new ArrayList<Integer>();
-        q.add(1);
-        q.add(5);
-        q.add(0);
-        q.add(3);
-        q.add(8);
-        q.add(4);
+        final int s = 1;
+        final Object d = s;
+        System.out.println(d.getClass().getName());
 
-        final int temp = q.get(q.size() - 1);
-
-        q.set(q.size() - 1, q.get(0));
-        q.set(0, temp);
-        for (final int i : q) {
-            System.out.println(i);
-        }
     }
 }

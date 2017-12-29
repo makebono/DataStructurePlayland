@@ -39,4 +39,6 @@ public interface BinarySearchTree<T> {
     String printBFS();
 
     String printDFS();
+
+    boolean isEmpty();
 }

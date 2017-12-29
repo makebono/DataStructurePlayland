@@ -26,6 +26,8 @@ public interface Graph<T> {
 
     void add(Vertex<T> vertex);
 
+    void bulkAdd(Vertex<T> vertex);
+
     int size();
 
     void setSource(Vertex<T> source);
