@@ -1,5 +1,9 @@
 package com.makebono.datastructures.test;
 
+import com.makebono.datastructures.twotritree.Bono23Node;
+import com.makebono.datastructures.twotritree.Bono23Tree;
+import com.makebono.datastructures.twotritree.twotritreeinterface.TwoTriTree;
+
 /** 
  * @ClassName: Test 
  * @Description: Test class for data structures
@@ -290,9 +294,29 @@ public class Test {
         
         System.out.println(pc.compare(v1, v2));
         */
-        final int s = 1;
-        final Object d = s;
-        System.out.println(d.getClass().getName());
+        final TwoTriTree<Integer> b23t = new Bono23Tree<Integer>();
+        final Bono23Node<Integer> n1 = new Bono23Node<Integer>(1, 3);
+        final Bono23Node<Integer> n2 = new Bono23Node<Integer>(2, 9);
+        final Bono23Node<Integer> n3 = new Bono23Node<Integer>(3, 2);
+        final Bono23Node<Integer> n4 = new Bono23Node<Integer>(4, 1);
+        final Bono23Node<Integer> n5 = new Bono23Node<Integer>(5, 0);
+        final Bono23Node<Integer> n6 = new Bono23Node<Integer>(6, 7);
+        final Bono23Node<Integer> n7 = new Bono23Node<Integer>(7, 6);
+        final Bono23Node<Integer> n8 = new Bono23Node<Integer>(8, 10);
+        final Bono23Node<Integer> n9 = new Bono23Node<Integer>(9, 4);
+        final Bono23Node<Integer> n10 = new Bono23Node<Integer>(10, 5);
 
+        b23t.addNode(n1);
+        b23t.addNode(n2);
+        b23t.addNode(n3);
+        b23t.addNode(n4);
+        b23t.addNode(n5);
+        b23t.addNode(n6);
+        b23t.addNode(n7);
+        b23t.addNode(n8);
+        b23t.addNode(n9);
+        b23t.addNode(n10);
+
+        System.out.println(b23t);
     }
 }
