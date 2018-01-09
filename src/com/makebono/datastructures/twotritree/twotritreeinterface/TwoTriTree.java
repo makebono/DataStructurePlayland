@@ -1,6 +1,8 @@
 package com.makebono.datastructures.twotritree.twotritreeinterface;
 
-import com.makebono.datastructures.binarysearchtree.bstinterface.BinarySearchTree;
+import java.util.ArrayList;
+
+import com.makebono.datastructures.twotritree.Bono23Node;
 
 /** 
  * @ClassName: TwoTriTree 
@@ -9,4 +11,10 @@ import com.makebono.datastructures.binarysearchtree.bstinterface.BinarySearchTre
  * @date 2017年12月22日 上午9:36:25 
  *  
  */
-public interface TwoTriTree<T> extends BinarySearchTree<T> {}
+public interface TwoTriTree<T> {
+    int size();
+
+    ArrayList<Bono23Node<T>> bfs23();
+
+    void addNode(Bono23Node<T> node);
+}
