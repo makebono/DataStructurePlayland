@@ -2,7 +2,6 @@ package com.makebono.datastructures.test;
 
 import com.makebono.datastructures.twotritree.Bono23Node;
 import com.makebono.datastructures.twotritree.Bono23Tree;
-import com.makebono.datastructures.twotritree.twotritreeinterface.TwoTriTree;
 
 /** 
  * @ClassName: Test 
@@ -294,17 +293,27 @@ public class Test {
         
         System.out.println(pc.compare(v1, v2));
         */
-        final TwoTriTree<Integer> b23t = new Bono23Tree<Integer>();
-        final Bono23Node<Integer> n1 = new Bono23Node<Integer>(1, 3);
+        final Bono23Tree<Integer> b23t = new Bono23Tree<Integer>();
+        final Bono23Node<Integer> n1 = new Bono23Node<Integer>(1, 13);
         final Bono23Node<Integer> n2 = new Bono23Node<Integer>(2, 9);
-        final Bono23Node<Integer> n3 = new Bono23Node<Integer>(3, 2);
+        final Bono23Node<Integer> n3 = new Bono23Node<Integer>(3, 15);
         final Bono23Node<Integer> n4 = new Bono23Node<Integer>(4, 1);
-        final Bono23Node<Integer> n5 = new Bono23Node<Integer>(5, 0);
+        final Bono23Node<Integer> n5 = new Bono23Node<Integer>(5, 10);
         final Bono23Node<Integer> n6 = new Bono23Node<Integer>(6, 7);
-        final Bono23Node<Integer> n7 = new Bono23Node<Integer>(7, 6);
+        final Bono23Node<Integer> n7 = new Bono23Node<Integer>(7, 66);
         final Bono23Node<Integer> n8 = new Bono23Node<Integer>(8, 10);
         final Bono23Node<Integer> n9 = new Bono23Node<Integer>(9, 4);
-        final Bono23Node<Integer> n10 = new Bono23Node<Integer>(10, 5);
+        final Bono23Node<Integer> n10 = new Bono23Node<Integer>(10, 11);
+        final Bono23Node<Integer> n11 = new Bono23Node<Integer>(11, 8);
+        final Bono23Node<Integer> n12 = new Bono23Node<Integer>(12, 0);
+        final Bono23Node<Integer> n13 = new Bono23Node<Integer>(13, 2);
+        final Bono23Node<Integer> n14 = new Bono23Node<Integer>(14, 3);
+        final Bono23Node<Integer> n15 = new Bono23Node<Integer>(15, 16);
+        final Bono23Node<Integer> n16 = new Bono23Node<Integer>(16, 12);
+        final Bono23Node<Integer> n17 = new Bono23Node<Integer>(17, 21);
+        final Bono23Node<Integer> n18 = new Bono23Node<Integer>(18, 30);
+        final Bono23Node<Integer> n19 = new Bono23Node<Integer>(19, 6);
+        final Bono23Node<Integer> n20 = new Bono23Node<Integer>(20, 19);
 
         b23t.addNode(n1);
         b23t.addNode(n2);
@@ -316,7 +325,19 @@ public class Test {
         b23t.addNode(n8);
         b23t.addNode(n9);
         b23t.addNode(n10);
+        b23t.addNode(n11);
+        b23t.addNode(n12);
+        b23t.addNode(n13);
+        b23t.addNode(n14);
+        b23t.addNode(n15);
+        b23t.addNode(n16);
+        b23t.addNode(n17);
+        b23t.addNode(n18);
+        b23t.addNode(n19);
+        b23t.addNode(n20);
 
+        System.out.println(b23t);
+        b23t.del(7);
         System.out.println(b23t);
     }
 }
