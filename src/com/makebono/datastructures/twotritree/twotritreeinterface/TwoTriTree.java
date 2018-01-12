@@ -17,4 +17,8 @@ public interface TwoTriTree<T> {
     ArrayList<Bono23Node<T>> bfs23();
 
     void addNode(Bono23Node<T> node);
+
+    void del(T key);
+
+    Bono23Node<T> search(T key);
 }
