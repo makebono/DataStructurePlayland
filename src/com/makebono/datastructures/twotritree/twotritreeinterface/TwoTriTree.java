@@ -14,11 +14,13 @@ import com.makebono.datastructures.twotritree.Bono23Node;
 public interface TwoTriTree<T> {
     int size();
 
-    ArrayList<Bono23Node<T>> bfs23();
+    ArrayList<Bono23Node<T>> bfs();
 
     void addNode(Bono23Node<T> node);
 
     void del(T key);
 
     Bono23Node<T> search(T key);
+
+    void clear();
 }
