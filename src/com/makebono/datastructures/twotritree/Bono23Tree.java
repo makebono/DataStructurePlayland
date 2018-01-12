@@ -14,8 +14,6 @@ import com.makebono.datastructures.twotritree.twotritreeinterface.TwoTriTree;
  * @date 2017年12月22日 上午9:36:59 
  *  
  */
-// Deal with the size.
-// Add delete by key method.
 @SuppressWarnings(value = { "unchecked", "unused" })
 public class Bono23Tree<T> implements TwoTriTree<T> {
     private Bono23Node<T> root;
