@@ -21,9 +21,17 @@ public class Bono23Node<T> extends BSTNode<T> {
     private Bono23Node<T> parent;
     private final TComparator<T> sideKick = new TComparator<T>();
 
+    public Bono23Node() {
+        this.lChild = null;
+        this.rChild = null;
+        this.mChild = null;
+        this.mtChild = null;
+        this.parent = null;
+        this.color = ' ';
+    }
+
     @SafeVarargs
-    public Bono23Node(final int index, final T... v) {
-        this.index = index;
+    public Bono23Node(final T... v) {
         this.lChild = null;
         this.rChild = null;
         this.mChild = null;
@@ -170,6 +178,6 @@ public class Bono23Node<T> extends BSTNode<T> {
 
     @Override
     public String toString() {
-        return "Node" + this.index + "(" + this.lv + ", " + this.mv + ", " + this.rv + ")";
+        return "Node" + "(" + this.lv + ", " + this.mv + ", " + this.rv + ")";
     }
 }

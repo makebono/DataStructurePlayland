@@ -19,6 +19,8 @@ import com.makebono.datastructures.twotritree.twotritreeinterface.TwoTriTree;
 @SuppressWarnings(value = { "unchecked", "unused" })
 public class Bono23Tree<T> implements TwoTriTree<T> {
     private Bono23Node<T> root;
+    // Size here is not the amount of nodes, but the amount of values contained in data structure. It makes more sense
+    // by this way, because no one cares about anything but the actual data.
     int size;
     TComparator<T> sideKick;
 
@@ -39,10 +41,9 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
             // System.out.println("new root! " + node);
 
             if (node.type() <= 3) {
-
                 return node;
             } else {
-                final Bono23Node<T> newRoot = new Bono23Node<T>(this.size() + 1);
+                final Bono23Node<T> newRoot = new Bono23Node<T>();
                 /* if (newL.getLv().equals(1) && newR.getLv().equals(6)) {
                     System.out.println("Check it out");
                     System.out.println(newL.getL().getP());
@@ -58,7 +59,6 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
                 newR.setP(newRoot);
 
                 // this.root = newRoot;
-                this.size += 2;
                 return newRoot;
             }
         }
@@ -79,7 +79,6 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
                 newL.setP(parent);
                 newR.setP(parent);
             }
-            this.size++;
             return this.root;
         } else {
             if (node == parent.getL()) {
@@ -90,8 +89,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
                 newL.setP(parent);
                 newR.setP(parent);
             } else if (node == parent.getM()) {
-                // System.out.println("parent!!!! " + parent);
-                // System.out.println("node!!!! " + node);
+                // System.out.println("parent " + parent);
+                // System.out.println("node " + node);
                 parent.setMv(node.getMv());
                 parent.setMt(newL);
                 parent.setM(newR);
@@ -116,8 +115,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
     }
 
     public Bono23Node<T>[] divide(final Bono23Node<T> node) {
-        final Bono23Node<T> newL = new Bono23Node<T>(node.getIndex());
-        final Bono23Node<T> newR = new Bono23Node<T>(this.size + 1);
+        final Bono23Node<T> newL = new Bono23Node<T>();
+        final Bono23Node<T> newR = new Bono23Node<T>();
 
         final Bono23Node<T> ll = node.getL();
         final Bono23Node<T> lr = node.getMt();
@@ -131,7 +130,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
         newR.setL(rl);
         newR.setR(rr);
 
-        // If node is not at bottom layer, don't forget to sign children to each divided node.
+        // If node is not at bottom layer, don't forget to assign children to each divided node. This is mainly for not
+        // assigning parent to null reference.
         if (ll != null) {
             ll.setP(newL);
             lr.setP(newL);
@@ -146,21 +146,25 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
     public void addNode(final Bono23Node<T> node) {
         if (this.isEmpty()) {
             // System.out.println("boo!");
-            this.root = node;
             this.size++;
+            this.root = node;
         } else {
+            this.size++;
             this.addNode(node, this.root);
         }
     }
 
     private void addNode(final Bono23Node<T> node, final Bono23Node<T> target) {
         if (target.isLeaf()) {
+            // Target has only one value, directly add the new key in. No changes on size.
             if (target.type() == '2') {
                 target.setRv(node.getLv());
                 target.balance(target);
                 // System.out.println("Target: " + target);
                 // System.out.println("Parent: " + target.getP());
-            } else {
+            }
+            // Target is already full. Add new key to the middle position, balance it, then push up.
+            else {
                 // System.out.println("boo!: node.getLv(): " + node.getLv());
 
                 target.setMv(node.getLv());
@@ -199,6 +203,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
             return;
         }
 
+        // Start all deletion from leaves to get more general cases to handle with. This is done by exchange the target
+        // value with minimum value on its right tree. If it is the leaf, directly start from target node.
         if (target.isLeaf()) {
             cursor = target;
         } else {
@@ -207,18 +213,23 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
         }
 
         this.del(key, cursor);
+        this.size--;
     }
 
     private boolean del(final T key, final Bono23Node<T> cursor) {
-        // Base case for deleting up to the root.
+        // Base case for deleting up onto the root. This means the root is currently an empty node with a single child.
+        // Set this one child as the new root and that's it.
         if (cursor == root) {
+            // Although the sub-tree hanging on a yet-to-be legit node is constant by cases, I'm lazy to decide left or
+            // right child it is. Use a simple conditional statement to get it covered. If the node to be dealt with is
+            // a leaf, it's ok since a null will be passed out whatsoever.
             final Bono23Node<T> newRoot = cursor.getL() == null ? cursor.getR() : cursor.getL();
             this.root = newRoot;
             return true;
         }
 
         // If candidate leaf node to be dealt with has 2 values, just simply delete the one out of it.
-        if (cursor.type() == '3') {
+        if (cursor.isLeaf() && cursor.type() == '3') {
             T remain;
             remain = key == cursor.getLv() ? cursor.getRv() : cursor.getLv();
             cursor.setLv(remain);
@@ -486,7 +497,7 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
                 else {
                     // Middle sibling has 2 values
                     if (parent.getM().type() == '3') {
-                        adjacent = parent.getL();
+                        adjacent = parent.getM();
 
                         final Bono23Node<T> t1 = adjacent.getL();
                         final Bono23Node<T> t2 = adjacent.getM();
@@ -572,6 +583,7 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
         return this.search(key, this.root);
     }
 
+    // Act identically as in BST, except a middle value should be considered here.
     private Bono23Node<T> search(final T key, final Bono23Node<T> cursor) {
         if (cursor == null) {} else if (cursor.type() == '2') {
             if (this.sideKick.compare(key, cursor.getLv()) == 0) {
@@ -597,8 +609,9 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
         return null;
     }
 
+    // As searching, this is pretty much similar as in any BST.
     @Override
-    public ArrayList<Bono23Node<T>> bfs23() {
+    public ArrayList<Bono23Node<T>> bfs() {
         final ArrayList<Bono23Node<T>> bfsResult = new ArrayList<Bono23Node<T>>();
         final Queue<Bono23Node<T>> queue = new LinkedList<Bono23Node<T>>();
         queue.add(this.getRoot());
@@ -623,7 +636,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
         return bfsResult;
     }
 
-    public Bono23Node<T> rMin(final Bono23Node<T> node, final T key) {
+    // Help method for deletion as in normal BST. lMax or rMin will do depends on your choice.
+    private Bono23Node<T> rMin(final Bono23Node<T> node, final T key) {
         if (node.isLeaf()) {
             return node;
         } else {
@@ -648,7 +662,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
         }
     }
 
-    public void swap(final Bono23Node<T> node1, final T key1, final Bono23Node<T> node2) {
+    // Swap the candidate value(to be removed) with it's rMin.lv then start from leaf onto the killzone.
+    private void swap(final Bono23Node<T> node1, final T key1, final Bono23Node<T> node2) {
         if (key1 == node1.getLv()) {
             node1.setLv(node2.getLv());
             node2.setLv(key1);
@@ -672,12 +687,22 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
     }
 
     @Override
+    public void clear() {
+        this.root = null;
+        this.size = 0;
+    }
+
+    @Override
     public String toString() {
+        if (this.root == null) {
+            return "This tree is empty.";
+        }
+
         final StringBuilder sb = new StringBuilder();
 
         sb.append("Showing traversal of 2-3 tree using BFS.\n    ");
         int i = 0;
-        final ArrayList<Bono23Node<T>> bfs = this.bfs23();
+        final ArrayList<Bono23Node<T>> bfs = this.bfs();
 
         for (final Bono23Node<T> cursor : bfs) {
             if (cursor == bfs.get(bfs.size() - 1)) {
@@ -694,6 +719,8 @@ public class Bono23Tree<T> implements TwoTriTree<T> {
                 sb.append("\n    ");
             }
         }
+
+        sb.append("\nData size of this tree is: " + this.size + "\n");
 
         return sb.toString();
     }
