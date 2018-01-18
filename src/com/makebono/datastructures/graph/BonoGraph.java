@@ -112,6 +112,8 @@ public class BonoGraph<T> implements Graph<T> {
         if (!edgeExist) {
             this.edges.add(edge);
             v1.addEdge(edge);
+            v1.increaseDegree();
+            v2.increaseDegree();
         }
     }
 

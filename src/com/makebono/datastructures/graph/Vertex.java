@@ -14,6 +14,7 @@ import com.makebono.datastructures.tools.genericnode.GenericNode;
 public class Vertex<T> extends GenericNode<T> {
     private final double x;
     private final double y;
+    private int degree;
     private final ArrayList<Edge<T>> edges;
     // For backtracking in dfs.
     private Vertex<T> parent;
@@ -23,6 +24,7 @@ public class Vertex<T> extends GenericNode<T> {
         this.data = data;
         this.x = 0;
         this.y = 0;
+        this.degree = 0;
         this.edges = new ArrayList<Edge<T>>();
         this.parent = null;
     }
@@ -31,6 +33,7 @@ public class Vertex<T> extends GenericNode<T> {
         super(index, data);
         this.x = x;
         this.y = y;
+        this.degree = 0;
         this.edges = new ArrayList<Edge<T>>();
         this.parent = null;
     }
@@ -41,6 +44,7 @@ public class Vertex<T> extends GenericNode<T> {
         this.data = vertex.getData();
         this.x = vertex.getX();
         this.y = vertex.getY();
+        this.degree = vertex.getDegree();
         this.edges = new ArrayList<Edge<T>>();
     }
 
@@ -58,6 +62,18 @@ public class Vertex<T> extends GenericNode<T> {
 
     public double getY() {
         return this.y;
+    }
+
+    public int getDegree() {
+        return this.degree;
+    }
+
+    public void setDegree(final int degree) {
+        this.degree = degree;
+    }
+
+    public void increaseDegree() {
+        this.degree++;
     }
 
     // See if there's an edge connecting this and target vertex. If not, return null, if there is, don't care about the
