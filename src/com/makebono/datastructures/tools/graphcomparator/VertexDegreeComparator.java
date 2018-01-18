@@ -15,9 +15,9 @@ import com.makebono.datastructures.graph.Vertex;
 public class VertexDegreeComparator<T> implements Comparator<Vertex<T>> {
     @Override
     public int compare(final Vertex<T> o1, final Vertex<T> o2) {
-        if (o1.getEdges().size() > o2.getEdges().size()) {
+        if (o1.getDegree() > o2.getDegree()) {
             return -1;
-        } else if (o1.getEdges().size() < o2.getEdges().size()) {
+        } else if (o1.getDegree() < o2.getDegree()) {
             return 1;
         }
         return 0;
